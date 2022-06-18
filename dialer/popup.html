@@ -9,89 +9,34 @@
           content="width=device-width, initial-scale=1.0">
     <title>Dialer</title>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
-          rel="stylesheet"
-          type="text/css" />
-    <link href="./style.css"
-          rel="stylesheet"
-          type="text/css" />
+   
+    <link href="/dialer/style.css"
+          rel="stylesheet"/>
 </head>
 
-<body oncontextmenu="return false;">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="panel panel-default soft-phone">
-                    <form action="./">
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <input type="tel"
-                                       class="form-control input-lg"
-                                       id="txtPhone"
-                                       placeholder="Phone Number">
-                            </div>
-                        </div>
-                    </form>
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <button class="btn btn-primary btn-lg btn-number">1<span>abc</span></button>
-                        </div>
-                        <div class="col-xs-4">
-                            <button class="btn btn-primary btn-lg btn-number">2<span>def</span></button>
-                        </div>
-                        <div class="col-xs-4">
-                            <button class="btn btn-primary btn-lg btn-number">3<span>ghi</span></button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <button class="btn btn-primary btn-lg btn-number">4<span>jkl</span></button>
-                        </div>
-                        <div class="col-xs-4">
-                            <button class="btn btn-primary btn-lg btn-number">5<span>mno</span></button>
-                        </div>
-                        <div class="col-xs-4">
-                            <button class="btn btn-primary btn-lg btn-number">6<span>pqr</span></button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <button class="btn btn-primary btn-lg btn-number">7<span>stu</span></button>
-                        </div>
-                        <div class="col-xs-4">
-                            <button class="btn btn-primary btn-lg btn-number">8<span>vwx</span></button>
-                        </div>
-                        <div class="col-xs-4">
-                            <button class="btn btn-primary btn-lg btn-number">9<span>yz</span></button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <button class="btn btn-primary btn-lg btn-number">*</button>
-                        </div>
-                        <div class="col-xs-4">
-                            <button class="btn btn-primary btn-lg btn-number">0</button>
-                        </div>
-                        <div class="col-xs-4">
-                            <button class="btn btn-primary btn-lg btn-number">#</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="btn-group btn-group-justified">
-                                <a class="btn btn-danger btn-lg"><i class="glyphicon glyphicon-phone-alt"></i> Hang
-                                    Up</a>
-                                <a class="btn btn-success btn-lg"><i class="glyphicon glyphicon-earphone"></i> Dial</a>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- /.soft-phone -->
-            </div><!-- /.col-xs-6 -->
-        </div><!-- /.row -->
-    </div><!-- /.container -->
+ <body>
+ <!--oncontextmenu="return false;" -->
+  
+
+
+        <div class="root-container">
+            <div class="dialpad flexCol centerCol borderRadius10">
+                <form class="dialpad-width">
+                    <button class="dial-input-area-button">
+                        <img class='btn-icon' src="/dialer/images/vertical.png"/>
+                    </button>
+                    <input class="dial-input-area" id="dialpad-input"/>
+                    <button class="dial-input-area-button" id="dialpad-input-btn-backspace">
+                        <img class='btn-icon' src="/dialer/images/backspace1.png" >
+                    </button>
+                  </form>
+                <div class="wrapper" id="dialpad-btn-container"></div>
+            </div>
+        </div>
+
     <script src="https://code.jquery.com/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="./app.js"></script>
+    <script src="/dialer/app.js"></script>
 </body>
 
 </html>
