@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Dialer</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+          rel="stylesheet"
+          type="text/css" />
+
+    <style>
+        body {
+            background-color: rgb(20, 20, 40);
+        }
+
+        .soft-phone {
+            background-color: rgb(30, 30, 50);
+            width: 300px;
+            max-width: 300px;
+            margin: 15px auto;
+            border: 2.5px solid #f0f0f0;
+            border-radius: 10px;
+        }
+
+        .soft-phone span {
+            display: block;
+            color: #f0f0f0;
+            font-size: 0.75em;
+            font-family: monospace;
+        }
+
+        .soft-phone .row {
+            margin: 15px 0;
+        }
+
+
+        .soft-phone .form-group input {
+            margin-bottom: 15px;
+        }
+
+        .btn-number {
+            width: 100%;
+            min-width: 60px;
+            max-width: 80px;
+            height: 70px;
+            min-height: 70px;
+            max-height: 70px;
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default soft-phone">
+                    <form action="./">
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input type="tel"
+                                       class="form-control input-lg"
+                                       id="txtPhone"
+                                       placeholder="Phone Number">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <button class="btn btn-primary btn-lg btn-number">1<span>abc</span></button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-primary btn-lg btn-number">2<span>def</span></button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-primary btn-lg btn-number">3<span>ghi</span></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <button class="btn btn-primary btn-lg btn-number">4<span>jkl</span></button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-primary btn-lg btn-number">5<span>mno</span></button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-primary btn-lg btn-number">6<span>pqr</span></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <button class="btn btn-primary btn-lg btn-number">7<span>stu</span></button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-primary btn-lg btn-number">8<span>vwx</span></button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-primary btn-lg btn-number">9<span>yz</span></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <button class="btn btn-primary btn-lg btn-number">*</button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-primary btn-lg btn-number">0</button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-primary btn-lg btn-number">#</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="btn-group btn-group-justified">
+                                <a class="btn btn-danger btn-lg"><i class="glyphicon glyphicon-phone-alt"></i> Hang
+                                    Up</a>
+                                <a class="btn btn-success btn-lg"><i class="glyphicon glyphicon-earphone"></i> Dial</a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.soft-phone -->
+            </div><!-- /.col-xs-6 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+        window.onbeforeunload = (event) => {
+            event.preventDefault();
+            return "";
+        }
+    </script>
+</body>
+
+</html>
