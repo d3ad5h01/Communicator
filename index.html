@@ -40,7 +40,7 @@
 
         //On click of dial button , opening popup and adding dialed number in its dial-input
         b1.onclick = () => {
-            dialer_win = open('/dialer/popup.html', 'popup',
+            dialer_win = open('https://github.com/mrc-sprinklr/popupCaller/blob/main/dialer/popup.html', 'popup',
                 "left=100, top=100, width=426px, height=653px");
             setTimeout(() =>{
                 dialer_win.document.getElementById('dialpad-input').value = document.getElementById('number-area').value;
@@ -69,7 +69,7 @@
             document.getElementById('messeges').innerHTML+=`Parent: ${messege} </br>`;
         }
 
-        
+
 
         
         /*
