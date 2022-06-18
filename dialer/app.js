@@ -3,6 +3,7 @@ window.onbeforeunload = (event) => {
   return "";
 };
 
+let communication =[];
 
 let dialpadBtnContainer = document.getElementById('dialpad-btn-container');
 
@@ -145,5 +146,16 @@ function handleCallButtonTheme(){
 
 
 function sendMessege(messege){
-    window.opener.document.getElementById('messeges').innerHTML+=`Popup : ${messege} </br>`;
+  console.log('Dialer:'+messege);
+  window.opener.recieveMessege(messege);
+  communication.push("Parent#"+messege);
+  document.getElementById('messeges').innerHTML+=`Dialer: ${messege} </br>`;
+}
+
+function recieveMessege(messege){
+  console.log('Dialer:'+ messege);
+ 
+  communication.push("Dialer#"+messege);
+  document.getElementById('messeges').innerHTML+=`Parent: ${messege} </br>`;
+  
 }

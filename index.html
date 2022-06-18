@@ -14,8 +14,11 @@
     <div class="flexRow centerRow">
         <div class="flexCol maxWidth200 centerCol centerRow">
             <div id="messeges"></div>
-            <!-- <div id="messeges"></div> -->
-    
+            
+            <textarea id="messege-area"></textarea>
+                </br>
+            <button id="send-messege" class="button-6">Send to Child</button>
+                </br>
             <textarea id="number-area"></textarea>
             
             <button id="b1"
@@ -28,6 +31,7 @@
 
         let dialer_win;
         let communication =[];
+       // document.getElementById('messeges').style.display = 'none';
         const b1 = document.getElementById("b1");
         b1.onclick = () => {
             dialer_win = open('/dialer/popup.html', 'popup',
@@ -38,11 +42,29 @@
             },500);
         };
 
-        document.getElementById('messeges').addEventListener('change',()=>{
-            console.log('changed');
+       
+
+        function sendMessege(messege){
+            console.log('Parent:'+messege);
+            dialer_win.recieveMessege(messege);
+            communication.push("Parent#"+messege);
+            document.getElementById('messeges').innerHTML+=`Parent: ${messege} </br>`;
+        }
+
+        function recieveMessege(messege){
+            console.log('Dialer:'+ messege);
+            if(messege=='ended')
+                dialer_win.close();
+            else{
+                communication.push("Dialer#"+messege);
+                document.getElementById('messeges').innerHTML+=`Dialer: ${messege} </br>`;
+            }
+        }
+
+        document.getElementById('send-messege').addEventListener('click',()=>{
+            sendMessege(document.getElementById('messege-area').value);
+            document.getElementById('messege-area').value='';
         })
-
-
 
     </script>
 </body>
