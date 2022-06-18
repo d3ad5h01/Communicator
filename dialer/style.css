@@ -1,10 +1,10 @@
 body{
     height: 666px;
-    width: 440px;
+    width: 426px;
     padding: 0px 0px 0px 0px;
     margin: 0;
     background-color: #909090;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     
 }
 .dialpad{
@@ -29,10 +29,14 @@ body{
     flex-direction: column; 
   }
 
+  .flexRow{
+    display: flex;
+    flex-direction: row; 
+  }
+
   .centerRow{
     justify-content: center;
   }
-
 
   .centerCol{
     align-items: center;
@@ -254,14 +258,17 @@ form {
 
   #messeges{
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: .25rem;
+    border-radius: 10px;
     padding: 5%;
     width: fit-content;
     overflow: scroll;
+    border-radius: 10px;
   }
 
   .conversation{
     background-color:#c4c4c4;
+    border-radius: 10px;
+    width: 426px;
   }
 
 
@@ -341,4 +348,10 @@ form {
 .borderNone{
   border: none;
   border-radius: 10px;
+}
+
+
+.margin0{
+  padding: 0px 0px 0px 0px;
+  margin: 0;
 }

@@ -3,6 +3,13 @@ let communication = [];
 let dialpadBtnContainer = document.getElementById("dialpad-btn-container");
 sendMessege("Dialer Live");
 
+document.addEventListener('contextmenu', event => event.preventDefault());
+window.addEventListener('resize', function(event) {
+
+    window.resizeTo(426,700);
+
+}, true);
+
 window.onbeforeunload = (event) => {
   if (callActive) {
     event.preventDefault();
