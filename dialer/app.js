@@ -44,6 +44,7 @@ arr.forEach(item => {
     let current = document.getElementById("dialpad"+ind);
     console.log(current);
     current.onclick = function () {
+        sendMessege(`typed ${item.title}`);
         console.log('clicked');
         let dialpadInput = document.getElementById('dialpad-input');
         let val = dialpadInput.value;
@@ -79,10 +80,11 @@ dialpadBtnContainer.innerHTML +=
 
 document.getElementById('dialpad-input').addEventListener('click',function(event){
     let dialpadInput = document.getElementById('dialpad-input');
-    console.log('updated cursoor location from '+cursorLocation + "to "+ dialpadInput.selectionStart );
+   // console.log('updated cursoor location from '+cursorLocation + "to "+ dialpadInput.selectionStart );
     cursorLocation = dialpadInput.selectionStart;
 })
 document.getElementById('dialpad-input-btn-backspace').addEventListener('click',function (event){
+    sendMessege('clicked backspace');
     event.preventDefault();
     if(cursorLocation<=0)
         return;
@@ -124,10 +126,24 @@ function handleCallButtonTheme(){
     let btn = document.getElementById("dialpad-caller-btn");
     console.log(btn.style.backgroundColor);
     callActive = (callActive+1)%2;
-    if(callActive)
+    if(callActive){
+        sendMessege(`calling`)
         btn.style.backgroundColor='#BA0001';
+    }
     else{
+      sendMessege(`call ended`)
          btn.style.backgroundColor='#49B568';
     }
 
+}
+
+
+
+
+///////////////////communication login
+
+
+
+function sendMessege(messege){
+    window.opener.document.getElementById('messeges').innerHTML+=`Popup : ${messege} </br>`;
 }

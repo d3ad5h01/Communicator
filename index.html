@@ -6,17 +6,44 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="/style.css"
+    rel="stylesheet"/>
 </head>
 
 <body>
-    <button id="b1"
-            style="margin: 25px; padding: 10px 25px; font-size: 20px; font-weight: bold; color: #baebd2; background-color: #12a556; border-radius: 20px;">DIAL</button>
+    <div class="flexRow centerRow">
+        <div class="flexCol maxWidth200 centerCol centerRow">
+            <div id="messeges"></div>
+            <!-- <div id="messeges"></div> -->
+    
+            <textarea id="number-area"></textarea>
+            
+            <button id="b1"
+                    style="margin: 25px; padding: 10px 25px; font-size: 20px; font-weight: bold; color: #baebd2; background-color: #12a556; border-radius: 20px;">DIAL</button>
+        </div>
+    </div>
+    
+   
     <script>
+
+        let dialer_win;
+        let communication =[];
         const b1 = document.getElementById("b1");
         b1.onclick = () => {
-            window.open('/dialer/popup.html', 'popup',
+            dialer_win = open('/dialer/popup.html', 'popup',
                 "left=100, top=100, width=426px, height=653px");
+            console.log(document.getElementById('number-area').value);
+            setTimeout(() =>{
+                dialer_win.document.getElementById('dialpad-input').value = document.getElementById('number-area').value;
+            },500);
         };
+
+        document.getElementById('messeges').addEventListener('change',()=>{
+            console.log('changed');
+        })
+
+
+
     </script>
 </body>
 

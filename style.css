@@ -1,0 +1,22 @@
+.flexCol{
+    display: flex;
+    flex-direction: column; 
+  }
+
+  .flexRow{
+    display: flex;
+    flex-direction: row; 
+  }
+
+  .centerRow{
+    justify-content: center;
+  }
+
+
+  .centerCol{
+    align-items: center;
+  }
+
+  .maxWidth200{
+    width: 200px;
+  }
