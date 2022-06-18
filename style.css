@@ -1,31 +1,29 @@
 body{
-    background-color:antiquewhite
+    background-color:antiquewhite;
 }
+
 .flexCol{
     display: flex;
     flex-direction: column; 
   }
 
-  .flexRow{
+.flexRow{
     display: flex;
     flex-direction: row; 
   }
 
-  .centerRow{
+.centerRow{
     justify-content: center;
   }
 
-
-  .centerCol{
+.centerCol{
     align-items: center;
   }
 
-  .maxWidth200{
+.maxWidth200{
     width: 200px;
   }
 
-
-/* CSS */
 .button-6 {
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -73,11 +71,11 @@ body{
 }
 
 .backgroundWhite{
-    background-color: #FFFFFF;
+    background-color: #cef1d7;
 }
 
 .backgroundGreen{
-    background-color: #20a302;
+    background-color: #21e171;
 }
 
 textarea {

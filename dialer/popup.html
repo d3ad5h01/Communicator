@@ -9,45 +9,49 @@
           content="width=device-width, initial-scale=1.0">
     <title>Dialer</title>
 
-   
     <link href="/dialer/style.css"
-          rel="stylesheet"/>
+          rel="stylesheet" />
 </head>
 
- <body>
- <!--oncontextmenu="return false;" -->
-  
+<body oncontextmenu="return false;">
 
-
-        <div class="root-container">
-
-            <div class="dialpad flexCol centerCol borderRadius10">
-                <form class="dialpad-width ">
-                    <button class="dial-input-area-button">
-                        <img class='btn-icon' src="/dialer/images/vertical.png"/>
-                    </button>
-                    <input class="dial-input-area" id="dialpad-input"/>
-                    <button class="dial-input-area-button" id="dialpad-input-btn-backspace">
-                        <img class='btn-icon' src="/dialer/images/backspace1.png" >
-                    </button>
-                  </form>
-                <div class="wrapper" id="dialpad-btn-container"></div>
-            </div>
+    <div class="root-container">
+        <div class="dialpad flexCol centerCol borderRadius10">
+            <form class="dialpad-width ">
+                <button class="dial-input-area-button">
+                    <img class='btn-icon'
+                         src="/dialer/images/vertical.png" />
+                </button>
+                <input class="dial-input-area"
+                       id="dialpad-input" />
+                <button class="dial-input-area-button"
+                        id="dialpad-input-btn-backspace">
+                    <img class='btn-icon'
+                         src="/dialer/images/backspace.png">
+                </button>
+            </form>
+            <div class="wrapper"
+                 id="dialpad-btn-container"></div>
         </div>
-
-        <div class="conversation flexCol centerCol">
-            <div id="messeges">
-                <h3>Messeges</h3>
-            </div>
-            </br>
-            <form class="backgroundWhite borderNone">
-                <textarea class='textarea1' name="myText" id="messege-area" rows="1" placeholder="Type Messege here..." maxlength="400"></textarea>
-              </form>
-                </br>
-            <button id="send-messege" class="button-6 backgroundWhite">Send to Parent</button>
-                </br>
+    </div>
+    <div class="conversation flexCol centerCol">
+        <div id="messeges">
+            <h3>Messeges</h3>
         </div>
-
+        </br>
+        <form class="backgroundWhite borderNone">
+            <textarea class='textarea1'
+                      name="myText"
+                      id="messege-area"
+                      rows="1"
+                      placeholder="Type Messege here..."
+                      maxlength="400"></textarea>
+        </form>
+        </br>
+        <button id="send-messege"
+                class="button-6 backgroundWhite">Send to Parent</button>
+        </br>
+    </div>
 
 
     <script src="https://code.jquery.com/jquery.min.js"></script>

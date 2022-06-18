@@ -1,11 +1,10 @@
-
-
 body{
     height: 666px;
     width: 440px;
     padding: 0px 0px 0px 0px;
     margin: 0;
-    background-color: rgb(144, 144, 144)
+    background-color: #909090;
+    overflow-x: hidden;
     
 }
 .dialpad{
@@ -251,10 +250,6 @@ form {
   }
 
 
-  
-
-
-
 
 
   #messeges{
@@ -266,7 +261,7 @@ form {
   }
 
   .conversation{
-    background-color:antiquewhite;
+    background-color:#c4c4c4;
   }
 
 
@@ -340,7 +335,7 @@ form {
 }
 
 .backgroundWhite{
-     background-color: #FFFFFF !important;
+     background-color: #cef1d7 !important;
 }
 
 .borderNone{

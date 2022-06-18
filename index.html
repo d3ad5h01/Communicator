@@ -7,7 +7,7 @@
           content="width=device-width, initial-scale=1.0">
     <title>Main App</title>
     <link href="/style.css"
-    rel="stylesheet"/>
+          rel="stylesheet" />
 </head>
 
 <body>
@@ -18,37 +18,47 @@
             </div>
             </br>
             <form>
-                <textarea name="myText" id="messege-area" rows="1" placeholder="Type Messege here..." maxlength="400"></textarea>
-              </form>
-                </br>
-            <button id="send-messege" class="button-6 backgroundWhite">Send to Child</button>
-                </br>
-            <textarea name="myText" id="number-area" rows="1" placeholder="Number to call.." maxlength="400"></textarea>
-                </br>
-            <button id="dial-button" class="button-6 backgroundGreen">DIAL</button>
+                <textarea name="myText"
+                          id="messege-area"
+                          rows="1"
+                          placeholder="Type Messege here..."
+                          maxlength="400"></textarea>
+            </form>
+            </br>
+            <button id="send-messege"
+                    class="button-6 backgroundWhite">Send to Child</button>
+            </br>
+            <textarea name="myText"
+                      id="number-area"
+                      rows="1"
+                      placeholder="Number to call.."
+                      maxlength="400"></textarea>
+            </br>
+            <button id="dial-button"
+                    class="button-6 backgroundGreen">DIAL</button>
         </div>
     </div>
-    
-   
+
+
     <script>
 
         let dialer_win;
-        let communication =[];
+        let communication = [];
 
 
         const b1 = document.getElementById("dial-button");
 
         //On click of dial button , opening popup and adding dialed number in its dial-input
         b1.onclick = () => {
-            dialer_win = open('https://github.com/mrc-sprinklr/popupCaller/blob/main/dialer/popup.html', 'popup',
+            dialer_win = open('./dialer/popup.html', 'popup',
                 "left=100, top=100, width=426px, height=653px");
-            setTimeout(() =>{
+            setTimeout(() => {
                 dialer_win.document.getElementById('dialpad-input').value = document.getElementById('number-area').value;
-            },500);
+            }, 500);
         };
 
 
-        
+
         /*
             Send Messege
 
@@ -58,41 +68,41 @@
             we access its recieveMessege function and use it to share messege.
 
         */
-        function sendMessege(messege){
-            
+        function sendMessege(messege) {
+
             // sening to tab
             dialer_win.recieveMessege(messege);
 
             // local updating
-            console.log('Parent:'+messege);
-            communication.push("Parent#"+messege);
-            document.getElementById('messeges').innerHTML+=`Parent: ${messege} </br>`;
+            console.log('Parent:' + messege);
+            communication.push("Parent#" + messege);
+            document.getElementById('messeges').innerHTML += `Parent: ${messege} </br>`;
         }
 
 
 
-        
+
         /*
             recieve messege 
 
             If we get "ended" => This means call ended so close popup window
             
         */
-        function recieveMessege(messege){
-            if(messege=='ended')
+        function recieveMessege(messege) {
+            if (messege == 'ended')
                 dialer_win.close();
 
             // local  updating
-            console.log('Dialer:'+ messege);
-            communication.push("Dialer#"+messege);
-            document.getElementById('messeges').innerHTML+=`Dialer: ${messege} </br>`;
-            
+            console.log('Dialer:' + messege);
+            communication.push("Dialer#" + messege);
+            document.getElementById('messeges').innerHTML += `Dialer: ${messege} </br>`;
+
         }
 
         //Send messege button handeling
-        document.getElementById('send-messege').addEventListener('click',()=>{
+        document.getElementById('send-messege').addEventListener('click', () => {
             sendMessege(document.getElementById('messege-area').value);
-            document.getElementById('messege-area').value='';
+            document.getElementById('messege-area').value = '';
         })
 
 
@@ -108,7 +118,7 @@
             this.style.height = this.scrollHeight + "px";
         }
         txt.addEventListener('keyup', setNewSize);
-       
+
 
     </script>
 </body>
