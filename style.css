@@ -1,3 +1,6 @@
+body{
+    background-color:antiquewhite
+}
 .flexCol{
     display: flex;
     flex-direction: column; 
@@ -25,7 +28,6 @@
 /* CSS */
 .button-6 {
   align-items: center;
-  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: .25rem;
   box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
@@ -69,3 +71,39 @@
   color: rgba(0, 0, 0, 0.65);
   transform: translateY(0);
 }
+
+.backgroundWhite{
+    background-color: #FFFFFF;
+}
+
+.backgroundGreen{
+    background-color: #20a302;
+}
+
+textarea {
+    display:block;
+    box-sizing: border-box;
+    width:100%;
+    resize: none;
+    overflow-y: hidden;
+    
+    /* optional CSS */
+    border: 0;
+    outline: 0;
+    background: white;
+    border-radius: 20px;
+    padding:20px;
+    font-weight:500;
+    font-size: 1.0em;
+    color: #343434;
+   
+  }
+
+
+  #messeges{
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: .25rem;
+    padding: 5%;
+    width: fit-content;
+    overflow: scroll;
+  }

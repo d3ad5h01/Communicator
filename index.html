@@ -13,16 +13,19 @@
 <body>
     <div class="flexRow centerRow">
         <div class="flexCol maxWidth200 centerCol centerRow">
-            <div id="messeges"></div>
+            <div id="messeges">
+                <h3>Messeges</h3>
+            </div>
             
-            <textarea id="messege-area"></textarea>
+            <form>
+                <textarea name="myText" id="messege-area" rows="1" placeholder="Type Messege here..." maxlength="400"></textarea>
+              </form>
                 </br>
-            <button id="send-messege" class="button-6">Send to Child</button>
+            <button id="send-messege" class="button-6 backgroundWhite">Send to Child</button>
                 </br>
-            <textarea id="number-area"></textarea>
-            
-            <button id="b1"
-                    style="margin: 25px; padding: 10px 25px; font-size: 20px; font-weight: bold; color: #baebd2; background-color: #12a556; border-radius: 20px;">DIAL</button>
+            <textarea name="myText" id="number-area" rows="1" placeholder="Number to call.." maxlength="400"></textarea>
+                </br>
+            <button id="b1" class="button-6 backgroundGreen">DIAL</button>
         </div>
     </div>
     
@@ -42,6 +45,12 @@
             },500);
         };
 
+        const txt = document.querySelector('#messege-area');
+        function setNewSize() {
+        this.style.height = "1px";
+        this.style.height = this.scrollHeight + "px";
+        }
+        txt.addEventListener('keyup', setNewSize);
        
 
         function sendMessege(messege){
