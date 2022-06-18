@@ -1,16 +1,30 @@
 let callActive =0;
 
 
-// window.onbeforeunload = (event) => {
-//   if(callActive){
-//     event.preventDefault();
-//   }
-//   else
-//   {
-//     return "";
-//     setTimeout(sendMessege('closed'),1000);
-//   }
-// };
+window.onbeforeunload = (event) => {
+    if(callActive){
+      return "Call is Active. Are you sure you want to close?"
+    }
+    else {
+      return null;
+    }    
+};
+
+// toggleUnload;
+
+// function closeWarning(){
+//   event.preventDefault();
+//   return "Call is Active. Are you sure you want to close?";
+// }
+// function toggleUnload(){
+//     if(callActive)
+//     {
+//        window.addEventListener('beforeunload',closeWarning);
+//     }
+//     else{
+//       window.removeEventListener('beforeunload',closeWarning);
+//     }
+// }
 
 let communication =[];
 
@@ -140,10 +154,12 @@ function handleCallButtonTheme(){
     if(callActive){
         sendMessege(`calling`)
         btn.style.backgroundColor='#BA0001';
+       // toggleUnload();
     }
     else{
       sendMessege(`ended`)
          btn.style.backgroundColor='#49B568';
+         //toggleUnload();
     }
 
 }
