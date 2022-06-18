@@ -1,7 +1,16 @@
-window.onbeforeunload = (event) => {
-  event.preventDefault();
-  return "";
-};
+let callActive =0;
+
+
+// window.onbeforeunload = (event) => {
+//   if(callActive){
+//     event.preventDefault();
+//   }
+//   else
+//   {
+//     return "";
+//     setTimeout(sendMessege('closed'),1000);
+//   }
+// };
 
 let communication =[];
 
@@ -22,7 +31,7 @@ let arr =[
     {title:"#",subtitle:"-"},
 ];
 
-let callActive =0;
+
 let cursorLocation=0;
 console.log(arr);
 let ind=-1;
@@ -127,12 +136,13 @@ function handleCallButtonTheme(){
     let btn = document.getElementById("dialpad-caller-btn");
     console.log(btn.style.backgroundColor);
     callActive = (callActive+1)%2;
+    console.log(callActive);
     if(callActive){
         sendMessege(`calling`)
         btn.style.backgroundColor='#BA0001';
     }
     else{
-      sendMessege(`call ended`)
+      sendMessege(`ended`)
          btn.style.backgroundColor='#49B568';
     }
 
