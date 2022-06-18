@@ -16,7 +16,7 @@
             <div id="messeges">
                 <h3>Messeges</h3>
             </div>
-            
+            </br>
             <form>
                 <textarea name="myText" id="messege-area" rows="1" placeholder="Type Messege here..." maxlength="400"></textarea>
               </form>
@@ -64,10 +64,10 @@
             console.log('Dialer:'+ messege);
             if(messege=='ended')
                 dialer_win.close();
-            else{
-                communication.push("Dialer#"+messege);
-                document.getElementById('messeges').innerHTML+=`Dialer: ${messege} </br>`;
-            }
+
+            communication.push("Dialer#"+messege);
+            document.getElementById('messeges').innerHTML+=`Dialer: ${messege} </br>`;
+            
         }
 
         document.getElementById('send-messege').addEventListener('click',()=>{

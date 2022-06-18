@@ -1,34 +1,20 @@
 let callActive =0;
-
+let communication =[];
+let dialpadBtnContainer = document.getElementById('dialpad-btn-container');
+sendMessege('Dialer Live');
 
 window.onbeforeunload = (event) => {
     if(callActive){
-      return "Call is Active. Are you sure you want to close?"
+      return "Call is Active. Are you sure you want to close?";
+      // return 
     }
     else {
+      sendMessege('closed dialer');
       return null;
     }    
 };
 
-// toggleUnload;
 
-// function closeWarning(){
-//   event.preventDefault();
-//   return "Call is Active. Are you sure you want to close?";
-// }
-// function toggleUnload(){
-//     if(callActive)
-//     {
-//        window.addEventListener('beforeunload',closeWarning);
-//     }
-//     else{
-//       window.removeEventListener('beforeunload',closeWarning);
-//     }
-// }
-
-let communication =[];
-
-let dialpadBtnContainer = document.getElementById('dialpad-btn-container');
 
 let arr =[
     {title:"1",subtitle:"_"},
@@ -46,9 +32,13 @@ let arr =[
 ];
 
 
+
+
+/// DIALPAD LOGIC
 let cursorLocation=0;
-console.log(arr);
 let ind=-1;
+
+// ADDED BUTTON TO DIAL PAD
 arr.forEach(item => {
     ind++;
     dialpadBtnContainer.innerHTML += 
@@ -58,21 +48,19 @@ arr.forEach(item => {
             <p class="subline-text removeDefaultPara fontColor">${item.subtitle}</p>
         </div>
     </div>`;
-    console.log(ind);
 });
 
 ind=-1;
+
+// ADDED EVENT LISTENERS TO DIALPAD
 setTimeout(()=>{
 arr.forEach(item => {
    ind++;
     let current = document.getElementById("dialpad"+ind);
-    console.log(current);
     current.onclick = function () {
         sendMessege(`typed ${item.title}`);
-        console.log('clicked');
         let dialpadInput = document.getElementById('dialpad-input');
         let val = dialpadInput.value;
-        console.log("BEFORE "+dialpadInput.selectionStart);
         dialpadInput.selectionStart = cursorLocation;
         dialpadInput.value = val.slice(0, cursorLocation) + item.title + val.slice(cursorLocation,val.length);
         cursorLocation++;
@@ -81,12 +69,14 @@ arr.forEach(item => {
 
     }
 
-    console.log(ind);
 
 });
 },500);
 
 
+
+
+// ADDING CALL BUTTON TO DIALPAD
 dialpadBtnContainer.innerHTML += 
     `<div class="dialbtn-wrapper">
         <div class="dialpad-btn dialpad-btn-empty flexCol centerRow centerCol">
@@ -102,17 +92,20 @@ dialpadBtnContainer.innerHTML +=
         </div>
     </div>`;
 
+
+
+// DIALPAD INPUT FOCUS HANDELING  
 document.getElementById('dialpad-input').addEventListener('click',function(event){
     let dialpadInput = document.getElementById('dialpad-input');
-   // console.log('updated cursoor location from '+cursorLocation + "to "+ dialpadInput.selectionStart );
     cursorLocation = dialpadInput.selectionStart;
 })
+
+// DIALPAD 
 document.getElementById('dialpad-input-btn-backspace').addEventListener('click',function (event){
     sendMessege('clicked backspace');
     event.preventDefault();
     if(cursorLocation<=0)
         return;
-    console.log('backspace');
     let dialpadInput = document.getElementById('dialpad-input');
     let val = dialpadInput.value;
     dialpadInput.selectionStart = cursorLocation;
@@ -146,20 +139,15 @@ function getWidthOfText(txt, fontname, fontsize){
 document.getElementById("dialpad-caller-btn").addEventListener('click',handleCallButtonTheme);
 
 function handleCallButtonTheme(){
-    console.log('clicked');
     let btn = document.getElementById("dialpad-caller-btn");
-    console.log(btn.style.backgroundColor);
     callActive = (callActive+1)%2;
-    console.log(callActive);
     if(callActive){
-        sendMessege(`calling`)
+        sendMessege(`calling ${document.getElementById('dialpad-input').value}`)
         btn.style.backgroundColor='#BA0001';
-       // toggleUnload();
     }
-    else{
-      sendMessege(`ended`)
-         btn.style.backgroundColor='#49B568';
-         //toggleUnload();
+    else{ 
+        sendMessege('ended');
+        btn.style.backgroundColor='#49B568';
     }
 
 }
@@ -180,7 +168,6 @@ function sendMessege(messege){
 
 function recieveMessege(messege){
   console.log('Dialer:'+ messege);
- 
   communication.push("Dialer#"+messege);
   document.getElementById('messeges').innerHTML+=`Parent: ${messege} </br>`;
   
