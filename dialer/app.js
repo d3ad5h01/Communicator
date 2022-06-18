@@ -75,7 +75,7 @@ dialpadBtnContainer.innerHTML += `<div class="dialbtn-wrapper">
 
 dialpadBtnContainer.innerHTML += `<div class="dialbtn-wrapper">
         <div class="dialpad-btn-caller flexCol centerRow centerCol" id="dialpad-caller-btn">
-            <img class='dialpad-btn-caller-icon' src="/dialer/images/phone.png"/>
+            <img class='dialpad-btn-caller-icon' src="./images/phone.png"/>
         </div>
     </div>`;
 
