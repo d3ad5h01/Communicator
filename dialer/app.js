@@ -159,3 +159,9 @@ function recieveMessege(messege){
   document.getElementById('messeges').innerHTML+=`Parent: ${messege} </br>`;
   
 }
+
+
+document.getElementById('send-messege').addEventListener('click',()=>{
+  sendMessege(document.getElementById('messege-area').value);
+  document.getElementById('messege-area').value='';
+})
