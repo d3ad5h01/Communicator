@@ -4,6 +4,8 @@ let dialpadBtnContainer = document.getElementById("dialpad-btn-container");
 sendMessage("Dialer Live");
 
 document.addEventListener("contextmenu", (event) => event.preventDefault());
+
+// TO prevent resize of popup window.
 window.addEventListener(
   "resize",
   function (event) {
@@ -12,6 +14,8 @@ window.addEventListener(
   true
 );
 
+// This is to handle close window logic
+// If call is active then only show warning.
 window.onbeforeunload = (event) => {
   if (callActive) {
     event.preventDefault();
@@ -113,6 +117,8 @@ document
     handleFocus(dialpadInput.value.slice(0, cursorLocation));
   });
 
+// This handle the focus location 
+// To get in width to input in scroll left, we use getWidth property.
 function handleFocus(str) {
   let focusWidth = getWidthOfText(str, "Courier New", "25px");
   console.log(focusWidth);
@@ -120,6 +126,7 @@ function handleFocus(str) {
   dialpadInput.scrollLeft = focusWidth;
 }
 
+// This gets the width in px from start , from prop such as font type , font size and text string
 function getWidthOfText(txt, fontname, fontsize) {
   if (getWidthOfText.c === undefined) {
     getWidthOfText.c = document.createElement("canvas");
@@ -130,10 +137,16 @@ function getWidthOfText(txt, fontname, fontsize) {
   return getWidthOfText.ctx.measureText(txt).width;
 }
 
+
+
+// dial button 
 document
   .getElementById("dialpad-caller-btn")
   .addEventListener("click", handleCallButtonTheme);
 
+// Green Dial button in dialpad logic handle
+// This also simulates calling logic
+// the callActive logic is handled by this   
 function handleCallButtonTheme() {
   let btn = document.getElementById("dialpad-caller-btn");
   callActive = (callActive + 1) % 2;
@@ -145,22 +158,44 @@ function handleCallButtonTheme() {
     btn.style.backgroundColor = "#49B568";
   }
 }
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+// Communication logic 
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
 
-// communication login
 
+
+ /*
+            Send Message
+
+            window.opener is address of parent window
+            We can access its function so,
+
+            we access its recieveMessage function and use it to share message.
+
+*/
 function sendMessage(message) {
-  console.log("Dialer:" + message);
+
+  // sending to remote
   window.opener.recieveMessage(message);
+
+
+  // Local updation
+  console.log("Dialer:" + message);
   communication.push("Parent#" + message);
   document.getElementById("messages").innerHTML += `Dialer: ${message} </br>`;
 }
 
 function recieveMessage(message) {
+
+// Local updation
   console.log("Dialer:" + message);
   communication.push("Dialer#" + message);
   document.getElementById("messages").innerHTML += `Parent: ${message} </br>`;
 }
 
+// Button to send messege 
 document.getElementById("send-message").addEventListener("click", () => {
   sendMessage(document.getElementById("message-area").value);
   document.getElementById("message-area").value = "";
