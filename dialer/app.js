@@ -1,7 +1,7 @@
 let callActive = 0;
 let communication = [];
 let dialpadBtnContainer = document.getElementById("dialpad-btn-container");
-sendMessege("Dialer Live");
+sendMessage("Dialer Live");
 
 // document.addEventListener('contextmenu', event => event.preventDefault());
 window.addEventListener(
@@ -17,7 +17,7 @@ window.onbeforeunload = (event) => {
     event.preventDefault();
     return "";
   } else {
-    sendMessege("closed dialer");
+    sendMessage("closed dialer");
     return null;
   }
 };
@@ -60,7 +60,7 @@ setTimeout(() => {
     ind++;
     let current = document.getElementById("dialpad" + ind);
     current.onclick = function () {
-      sendMessege(`typed ${item.title}`);
+      sendMessage(`typed ${item.title}`);
       let dialpadInput = document.getElementById("dialpad-input");
       let val = dialpadInput.value;
       dialpadInput.selectionStart = cursorLocation;
@@ -100,7 +100,7 @@ document
 document
   .getElementById("dialpad-input-btn-backspace")
   .addEventListener("click", function (event) {
-    sendMessege("clicked backspace");
+    sendMessage("clicked backspace");
     event.preventDefault();
     if (cursorLocation <= 0) return;
     let dialpadInput = document.getElementById("dialpad-input");
@@ -138,30 +138,30 @@ function handleCallButtonTheme() {
   let btn = document.getElementById("dialpad-caller-btn");
   callActive = (callActive + 1) % 2;
   if (callActive) {
-    sendMessege(`calling ${document.getElementById("dialpad-input").value}`);
+    sendMessage(`calling ${document.getElementById("dialpad-input").value}`);
     btn.style.backgroundColor = "#BA0001";
   } else {
-    sendMessege("ended");
+    sendMessage("ended");
     btn.style.backgroundColor = "#49B568";
   }
 }
 
 // communication login
 
-function sendMessege(messege) {
-  console.log("Dialer:" + messege);
-  window.opener.recieveMessege(messege);
-  communication.push("Parent#" + messege);
-  document.getElementById("messeges").innerHTML += `Dialer: ${messege} </br>`;
+function sendMessage(message) {
+  console.log("Dialer:" + message);
+  window.opener.recieveMessage(message);
+  communication.push("Parent#" + message);
+  document.getElementById("messages").innerHTML += `Dialer: ${message} </br>`;
 }
 
-function recieveMessege(messege) {
-  console.log("Dialer:" + messege);
-  communication.push("Dialer#" + messege);
-  document.getElementById("messeges").innerHTML += `Parent: ${messege} </br>`;
+function recieveMessage(message) {
+  console.log("Dialer:" + message);
+  communication.push("Dialer#" + message);
+  document.getElementById("messages").innerHTML += `Parent: ${message} </br>`;
 }
 
-document.getElementById("send-messege").addEventListener("click", () => {
-  sendMessege(document.getElementById("messege-area").value);
-  document.getElementById("messege-area").value = "";
+document.getElementById("send-message").addEventListener("click", () => {
+  sendMessage(document.getElementById("message-area").value);
+  document.getElementById("message-area").value = "";
 });

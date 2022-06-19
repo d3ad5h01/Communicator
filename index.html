@@ -14,19 +14,19 @@
 <body>
     <div class="flexRow centerRow">
         <div class="flexCol maxWidth200 centerCol centerRow">
-            <div id="messeges">
-                <h3>Messeges</h3>
+            <div id="messages">
+                <h3>Messages</h3>
             </div>
             </br>
             <form>
                 <textarea name="myText"
-                          id="messege-area"
+                          id="message-area"
                           rows="1"
-                          placeholder="Type Messege here..."
+                          placeholder="Type Message here..."
                           maxlength="400"></textarea>
             </form>
             </br>
-            <button id="send-messege"
+            <button id="send-message"
                     class="button-6 backgroundWhite">Send to Child</button>
             </br>
             <textarea name="myText"
@@ -60,52 +60,52 @@
 
 
         /*
-            Send Messege
+            Send Message
 
             dialer_win is address of popup window
             We can access its function so,
 
-            we access its recieveMessege function and use it to share messege.
+            we access its recieveMessage function and use it to share message.
 
         */
-        function sendMessege(messege) {
+        function sendMessage(message) {
             // sending to tab
-            dialer_win.recieveMessege(messege);
+            dialer_win.recieveMessage(message);
 
             // local updating
-            console.log('Parent:' + messege);
-            communication.push("Parent#" + messege);
-            document.getElementById('messeges').innerHTML += `Parent: ${messege} </br>`;
+            console.log('Parent:' + message);
+            communication.push("Parent#" + message);
+            document.getElementById('messages').innerHTML += `Parent: ${message} </br>`;
         }
 
 
         /*
-            recieve messege 
+            recieve message 
 
             If we get "ended" => This means call ended so close popup window
             
         */
-        function recieveMessege(messege) {
-            if (messege == 'ended')
+        function recieveMessage(message) {
+            if (message == 'ended')
                 dialer_win.close();
 
             // local  updating
-            console.log('Dialer:' + messege);
-            communication.push("Dialer#" + messege);
-            document.getElementById('messeges').innerHTML += `Dialer: ${messege} </br>`;
+            console.log('Dialer:' + message);
+            communication.push("Dialer#" + message);
+            document.getElementById('messages').innerHTML += `Dialer: ${message} </br>`;
 
         }
 
 
-        //Send messege button handeling
-        document.getElementById('send-messege').addEventListener('click', () => {
-            sendMessege(document.getElementById('messege-area').value);
-            document.getElementById('messege-area').value = '';
+        //Send message button handeling
+        document.getElementById('send-message').addEventListener('click', () => {
+            sendMessage(document.getElementById('message-area').value);
+            document.getElementById('message-area').value = '';
         })
 
 
         // Irrelevent style handeling logic
-        const txt = document.querySelector('#messege-area');
+        const txt = document.querySelector('#message-area');
         function setNewSize() {
             this.style.height = "1px";
             this.style.height = this.scrollHeight + "px";
