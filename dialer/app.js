@@ -3,7 +3,7 @@ let communication = [];
 let dialpadBtnContainer = document.getElementById("dialpad-btn-container");
 sendMessage("Dialer Live");
 
-// document.addEventListener('contextmenu', event => event.preventDefault());
+document.addEventListener("contextmenu", (event) => event.preventDefault());
 window.addEventListener(
   "resize",
   function (event) {
