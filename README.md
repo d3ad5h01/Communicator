@@ -7,6 +7,13 @@
 - Findings : https://docs.google.com/document/d/1VljNmN541O69BKYMEtyec4xHpv3qS2XRKzTPuDcTGT4/edit#
 - Demo: https://mrc-sprinklr.github.io/popupCaller
 
+#### Steps
+- Add number to call.
+- Click Dial Button. 
+- Now Cross Communication is also established .
+- Clicking on green call button on popup window activates/imittes the Calling phase, and its color turns red.
+- Reclicking the red turned call button willl close the call phase and as well close the popup.
+### Note : Do not send message without clicking the dial button, as it has no child/popup.
 ---
 
 Communication between parent and popup is established based on fact that they can access each other's function.
