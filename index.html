@@ -78,13 +78,14 @@
             
             call_object = createCallObject({to: document.getElementById('number-area').value});
             handleDialStart(call_object)
+            console.log(call_object);
 
-            sendMessage({header:'call_object',message: call_object});
+            
 
             setTimeout(() => {
-                console.log('SENDING NO');
+                sendMessage({header:'call_object',message: call_object});
                 popup_win.document.getElementById('dialpad-input').value = document.getElementById('number-area').value;
-            }, 2000);
+            }, 1000);
             
            
 
@@ -110,6 +111,7 @@
             // sending to tab
             if(!isPopupActive)
                 return;
+            console.log(popup_win);
             popup_win.recieveMessage(ack);
 
             // local updating
@@ -145,6 +147,7 @@
                 handleClose();
             }
             else if(ack.header == 'call_started'){
+
                 call_object.status = ack.header;
                 updateCallObject();
             }

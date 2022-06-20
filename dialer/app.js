@@ -183,14 +183,14 @@ function handleCallButtonTheme() {
 function sendMessage(ack) {
 
   // sending to remote
-  let ack = {header: ack.header, message: ack.message, object: ack.object};
+  //let ack = {header: ack.header, message: ack.message, object: ack.object};
   window.opener.recieveMessage(ack);
 
 
   // Local updation
   console.log("Dialer:" + ack.message);
   communication.push("Dialer#"+ack.header+"#"+ack.message);
-  document.getElementById("messages").innerHTML += `Dialer: ${message} </br>`;
+  document.getElementById("messages").innerHTML += `Dialer: ${ack.message} </br>`;
 }
 
 function recieveMessage(ack) {
