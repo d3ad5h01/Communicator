@@ -193,19 +193,22 @@ function sendMessage(header, message) {
   document.getElementById("messages").innerHTML += `Dialer: ${message} </br>`;
 }
 
-function recieveMessage(message) {
+function recieveMessage(ack) {
 
-  if(message == 'reload_parent'){
+  if(ack.header == 'reload_parent'){
     console.log('sending var to parents');
     setTimeout(()=>{
       sendParentVariable();
       sendPopUpVariable();
     },2000);
   }
+  else if(ack.header=='call_object'){
+
+  }
 // Local updation
-  console.log("Dialer:" + message);
-  communication.push("Dialer#" + message);
-  document.getElementById("messages").innerHTML += `Parent: ${message} </br>`;
+  console.log("Dialer:" + ack.message);
+  // communication.push("Dialer#" + message);
+  document.getElementById("messages").innerHTML += `Parent: ${ack.message} </br>`;
 }
 
 // Button to send messege 

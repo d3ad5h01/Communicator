@@ -45,7 +45,7 @@
 
     <script>
 
-        let popup_win,communication = [],isPopupActive =0;
+        let popup_win,communication = [],isPopupActive =0,call_object;
 
 
         //session restore 
@@ -58,7 +58,7 @@
 
 
         window.onbeforeunload = (event) => {
-           sendMessage('reload_parent');
+           sendMessage({header:'reload_parent',messege:""});
            return "";
         };
 
@@ -76,10 +76,11 @@
             popup_win = open('./dialer/popup.html', 'popup',"left=100, top=100, width=426px, height=653px");
             console.log(popup_win);   
             
-            let call_object = createCallObject({to: document.getElementById('number-area').value});
+            call_object = createCallObject({to: document.getElementById('number-area').value});
             handleDialStart(call_object)
 
-            sendMessage()
+            sendMessage({header:'call_object',messege: call_object});
+
             setTimeout(() => {
                 popup_win.document.getElementById('dialpad-input').value = document.getElementById('number-area').value;
             }, 500);
@@ -104,14 +105,14 @@
             we access its recieveMessage function and use it to share message.
 
         */
-        function sendMessage(message) {
+        function sendMessage(ack) {
             // sending to tab
             if(!isPopupActive)
                 return;
-            popup_win.recieveMessage(message);
+            popup_win.recieveMessage(ack);
 
             // local updating
-            addMessegeLocally('Parent : '+message);
+            addMessegeLocally('Parent : '+JSON.stringify(ack.message));
         }
 
         function handleClose(){
@@ -133,13 +134,18 @@
         */
         function recieveMessage(ack) {
             if (ack.header == 'call_ended'){
+                call_object.status = ack.header;
+                updateCallObject();
                handleClose();
             }
             else if(ack.header == 'end_popup'){
+                call_object.status = 'CALL_CANCALLED';
+                updateCallObject();
                 handleClose();
             }
             else if(ack.header == 'call_started'){
-
+                call_object.status = ack.header;
+                updateCallObject();
             }
             else if(ack.header == 'communicate'){
 
@@ -152,7 +158,7 @@
 
         //Send message button handeling
         document.getElementById('send-message').addEventListener('click', () => {
-            sendMessage(document.getElementById('message-area').value);
+            sendMessage({header:'communicate',messege: document.getElementById('message-area').value});
             document.getElementById('message-area').value = '';
         })
 
@@ -200,8 +206,14 @@
 
         // call object
         // id, duration, to , started 
+
+        function updateCallObject(){
+            let ack = call_object;
+            document.getElementById(`${call_object.id}`).innerHTML = `<div class='maxWidth border1B padding10' id='${ack.id}'> ID: ${ack.to} </br> TO: ${ack.id} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration} </div>`;
+        }   
+
         function addInCallBox(ack){
-            document.getElementById('content-body-box').innerHTML+= `<div class='maxWidth border1B padding10'> ID: ${ack.to} </br> TO: ${ack.to} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration} </div>`;
+            document.getElementById('content-body-box').innerHTML+= `<div class='maxWidth border1B padding10' id='${ack.id}'> ID: ${ack.to} </br> TO: ${ack.id} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration} </div>`;
         }
         function handleDialStart(ack){
             addInCallBox(ack);
