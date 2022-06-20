@@ -4,11 +4,7 @@ let dialpadBtnContainer = document.getElementById("dialpad-btn-container");
 let popup_win;
 let parent;
 
-// handle this+++++++++
-parent = window.opener;
 popup_win = window.opener.getPopUpVariable();
-
-
 
 sendMessage("Dialer Live");
 
@@ -30,7 +26,7 @@ window.onbeforeunload = (event) => {
     event.preventDefault();
     return "";
   } else {
-    sendMessage("closed dialer");
+    sendMessage("end_popup");
     return null;
   }
 };
@@ -163,7 +159,7 @@ function handleCallButtonTheme() {
     sendMessage(`calling ${document.getElementById("dialpad-input").value}`);
     btn.style.backgroundColor = "#BA0001";
   } else {
-    sendMessage("ended");
+    sendMessage("call_ended");
     btn.style.backgroundColor = "#49B568";
   }
 }

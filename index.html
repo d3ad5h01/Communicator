@@ -12,14 +12,14 @@
 </head>
 
 <body>
-    <div class="root-container flexRow centerRow" id="root-box">
-        <div class="content-container flexCol centerCol" id="content-box">
-            <div class="content-header-container flexRow " id="content-header-box">
-                <textarea name="myText" id="number-area" rows="1" placeholder="Number to call.." maxlength="400"></textarea>
+    <div class="root-container flexRow centerRow flexGap" id="root-box">
+        <div class="content-container flexCol centerCol border1B borderRadius padding10 width50vw" id="content-box">
+            <div class="content-header-container flexRow  padding10" id="content-header-box">
+                <input class="textarea1 width" name="myText" id="number-area" rows="1" placeholder="Number to call.." maxlength="400"></input>
                 </br>
                 <button id="dial-button"  class="button-6 backgroundGreen">DIAL</button>
             </div>    
-            <div class="content-body-container" id="content-body-box">
+            <div class="content-body-container border1B padding10 maxWidth" id="content-body-box">
                 <h2>Past Calls</h2>
             </div>
         </div>
@@ -33,7 +33,7 @@
                           id="message-area"
                           rows="1"
                           placeholder="Type Message here..."
-                          maxlength="900"></textarea>
+                          ></textarea>
             </form>
             </br>
             <button id="send-message"
@@ -49,10 +49,10 @@
 
 
         //session restore 
-        if(sessionStorage.getItem('is_popUp_active')!=null)
-            isPopupActive = sessionStorage.getItem('is_popUp_active');
+        if(sessionStorage.getItem('is_popup_active')!=null)
+            isPopupActive = sessionStorage.getItem('is_popup_active');
         else{
-            sessionStorage.setItem('is_popUp_active',0);
+            sessionStorage.setItem('is_popup_active',0);
         }
 
 
@@ -66,10 +66,12 @@
 
         //On click of dial button , opening popup and adding dialed number in its dial-input
         dialButton.onclick = () => {
+            console.log('Event: Dial Button Clicked');
+            console.log(isPopupActive);
             if(isPopupActive!=0)
                 return;
             isPopupActive=1;
-            sessionStorage.setItem('is_popUp_active',1);
+            sessionStorage.setItem('is_popup_active',1);
             
             popup_win = open('./dialer/popup.html', 'popup',"left=100, top=100, width=426px, height=653px");
             console.log(popup_win);   
@@ -78,6 +80,12 @@
             }, 500);
         };
 
+
+        function addMessegeLocally(message){
+            console.log(message);
+            communication.push(message);
+            document.getElementById('messages').innerHTML += `${message} </br>`;
+        }
 
         /*
             Send Message
@@ -95,15 +103,18 @@
             popup_win.recieveMessage(message);
 
             // local updating
-            console.log('Parent:' + message);
-            communication.push("Parent#" + message);
-            document.getElementById('messages').innerHTML += `Parent: ${message} </br>`;
+            addMessegeLocally('Parent : '+message);
         }
 
         function handleClose(){
+            console.log("handleClose enabled");
             popup_win.close();
             isPopupActive = 0;
-            sessionStorage.setItem('is_popUp_active',0);
+            sessionStorage.setItem('is_popup_active',0);
+            popup_win = null;
+
+            console.log("Popup activeness"+isPopupActive);
+            
         }
 
         /*
@@ -113,14 +124,13 @@
             
         */
         function recieveMessage(message) {
-            if (message == 'ended')
+            if (message == 'call_ended' )
                handleClose();
+            else if(message == 'end_popup')
+                handleClose();
 
             // local  updating
-            console.log('Dialer:' + message);
-            communication.push("Dialer#" + message);
-            document.getElementById('messages').innerHTML += `Dialer: ${message} </br>`;
-
+            addMessegeLocally('Dialer : '+message);
         }
 
 
