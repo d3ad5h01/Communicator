@@ -43,18 +43,36 @@
 
     <script>
 
-        let dialer_win;
-        let communication = [];
+        let popup_win,communication = [],activePopUp =0;
 
+        //session restore 
+        if(sessionStorage.getItem('if_popUp_active')!=null)
+            activePopUp = sessionStorage.getItem('if_popUp_active');
+        else{
+            sessionStorage.setItem('if_popUp_active',0);
+        }
+
+
+
+        window.onbeforeunload = (event) => {
+           sendMessage('reload_parent');
+           return "";
+        };
 
         const b1 = document.getElementById("dial-button");
 
         //On click of dial button , opening popup and adding dialed number in its dial-input
         b1.onclick = () => {
-            dialer_win = open('./dialer/popup.html', 'popup',
-                "left=100, top=100, width=426px, height=653px");
+            if(activePopUp!=0)
+                return;
+            activePopUp=1;
+            sessionStorage.setItem('if_popUp_active',1);
+            
+            popup_win = open('./dialer/popup.html', 'popup',"left=100, top=100, width=426px, height=653px");
+            parent = window;
+            console.log(popup_win);   
             setTimeout(() => {
-                dialer_win.document.getElementById('dialpad-input').value = document.getElementById('number-area').value;
+                popup_win.document.getElementById('dialpad-input').value = document.getElementById('number-area').value;
             }, 500);
         };
 
@@ -62,7 +80,7 @@
         /*
             Send Message
 
-            dialer_win is address of popup window
+            popup_win is address of popup window
             We can access its function so,
 
             we access its recieveMessage function and use it to share message.
@@ -70,7 +88,9 @@
         */
         function sendMessage(message) {
             // sending to tab
-            dialer_win.recieveMessage(message);
+            if(!activePopUp)
+                return;
+            popup_win.recieveMessage(message);
 
             // local updating
             console.log('Parent:' + message);
@@ -78,6 +98,11 @@
             document.getElementById('messages').innerHTML += `Parent: ${message} </br>`;
         }
 
+        function handleClose(){
+            popup_win.close();
+            activePopUp = 0;
+            sessionStorage.setItem('if_popUp_active',0);
+        }
 
         /*
             recieve message 
@@ -87,13 +112,42 @@
         */
         function recieveMessage(message) {
             if (message == 'ended')
-                dialer_win.close();
+               handleClose();
 
             // local  updating
             console.log('Dialer:' + message);
             communication.push("Dialer#" + message);
             document.getElementById('messages').innerHTML += `Dialer: ${message} </br>`;
 
+        }
+
+
+        function setParentVariable(parentVar){
+            console.log("Parent is: ");
+            parent = parentVar;
+            console.log(parent);
+        }
+
+        function getParentVariable(){
+            return parent;
+        }
+
+        function sendParentVariable(){
+            popup_win.setParentVariable(parent);
+        }
+
+        function setPopUpVariable(childVar){
+            console.log("Pop window recived is ");
+            popup_win = childVar;
+            console.log(popup_win);
+        }
+
+        function getPopUpVariable(){
+            return popup_win;
+        }
+
+        function sendPopUpVariable(){
+            popup_win.setPopUpVariable(popup_win);
         }
 
 

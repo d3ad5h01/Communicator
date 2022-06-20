@@ -1,9 +1,18 @@
 let callActive = 0;
 let communication = [];
 let dialpadBtnContainer = document.getElementById("dialpad-btn-container");
+let popup_win;
+let parent;
+
+// handle this+++++++++
+parent = window.opener;
+popup_win = window.opener.getPopUpVariable();
+
+
+
 sendMessage("Dialer Live");
 
-document.addEventListener("contextmenu", (event) => event.preventDefault());
+// document.addEventListener("contextmenu", (event) => event.preventDefault());
 
 // TO prevent resize of popup window.
 window.addEventListener(
@@ -189,6 +198,13 @@ function sendMessage(message) {
 
 function recieveMessage(message) {
 
+  if(message == 'reload_parent'){
+    console.log('sending var to parents');
+    setTimeout(()=>{
+      sendParentVariable();
+      sendPopUpVariable();
+    },3000);
+  }
 // Local updation
   console.log("Dialer:" + message);
   communication.push("Dialer#" + message);
@@ -200,3 +216,31 @@ document.getElementById("send-message").addEventListener("click", () => {
   sendMessage(document.getElementById("message-area").value);
   document.getElementById("message-area").value = "";
 });
+
+
+
+function setParentVariable(parentVar){
+  parent = parentVar;
+}
+
+function getParentVariable(){
+  return parent;
+}
+
+function sendParentVariable(){
+  console.log("sending parent to parent");
+  window.opener.setParentVariable(parent);
+}
+
+function setPopUpVariable(childVar){
+  popup_win = childVar;
+}
+
+function getPopUpVariable(){
+  return window;
+}
+
+function sendPopUpVariable(){
+  console.log('sending popup to parent')
+  window.opener.setPopUpVariable(window);
+}
