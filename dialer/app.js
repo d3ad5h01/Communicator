@@ -203,7 +203,7 @@ function recieveMessage(message) {
     setTimeout(()=>{
       sendParentVariable();
       sendPopUpVariable();
-    },3000);
+    },2000);
   }
 // Local updation
   console.log("Dialer:" + message);

@@ -12,8 +12,18 @@
 </head>
 
 <body>
-    <div class="flexRow centerRow">
-        <div class="flexCol maxWidth200 centerCol centerRow">
+    <div class="root-container flexRow centerRow" id="root-box">
+        <div class="content-container flexCol centerCol" id="content-box">
+            <div class="content-header-container flexRow " id="content-header-box">
+                <textarea name="myText" id="number-area" rows="1" placeholder="Number to call.." maxlength="400"></textarea>
+                </br>
+                <button id="dial-button"  class="button-6 backgroundGreen">DIAL</button>
+            </div>    
+            <div class="content-body-container" id="content-body-box">
+                <h2>Past Calls</h2>
+            </div>
+        </div>
+        <div class="sidebar-container flexCol centerCol" id="sidebar-box">
             <div id="messages">
                 <h3>Messages</h3>
             </div>
@@ -23,33 +33,26 @@
                           id="message-area"
                           rows="1"
                           placeholder="Type Message here..."
-                          maxlength="400"></textarea>
+                          maxlength="900"></textarea>
             </form>
             </br>
             <button id="send-message"
                     class="button-6 backgroundWhite">Send to Child</button>
             </br>
-            <textarea name="myText"
-                      id="number-area"
-                      rows="1"
-                      placeholder="Number to call.."
-                      maxlength="400"></textarea>
-            </br>
-            <button id="dial-button"
-                    class="button-6 backgroundGreen">DIAL</button>
         </div>
     </div>
 
 
     <script>
 
-        let popup_win,communication = [],activePopUp =0;
+        let popup_win,communication = [],isPopupActive =0;
+
 
         //session restore 
-        if(sessionStorage.getItem('if_popUp_active')!=null)
-            activePopUp = sessionStorage.getItem('if_popUp_active');
+        if(sessionStorage.getItem('is_popUp_active')!=null)
+            isPopupActive = sessionStorage.getItem('is_popUp_active');
         else{
-            sessionStorage.setItem('if_popUp_active',0);
+            sessionStorage.setItem('is_popUp_active',0);
         }
 
 
@@ -59,17 +62,16 @@
            return "";
         };
 
-        const b1 = document.getElementById("dial-button");
+        const dialButton = document.getElementById("dial-button");
 
         //On click of dial button , opening popup and adding dialed number in its dial-input
-        b1.onclick = () => {
-            if(activePopUp!=0)
+        dialButton.onclick = () => {
+            if(isPopupActive!=0)
                 return;
-            activePopUp=1;
-            sessionStorage.setItem('if_popUp_active',1);
+            isPopupActive=1;
+            sessionStorage.setItem('is_popUp_active',1);
             
             popup_win = open('./dialer/popup.html', 'popup',"left=100, top=100, width=426px, height=653px");
-            parent = window;
             console.log(popup_win);   
             setTimeout(() => {
                 popup_win.document.getElementById('dialpad-input').value = document.getElementById('number-area').value;
@@ -88,7 +90,7 @@
         */
         function sendMessage(message) {
             // sending to tab
-            if(!activePopUp)
+            if(!isPopupActive)
                 return;
             popup_win.recieveMessage(message);
 
@@ -100,8 +102,8 @@
 
         function handleClose(){
             popup_win.close();
-            activePopUp = 0;
-            sessionStorage.setItem('if_popUp_active',0);
+            isPopupActive = 0;
+            sessionStorage.setItem('is_popUp_active',0);
         }
 
         /*
@@ -121,6 +123,15 @@
 
         }
 
+
+        //Send message button handeling
+        document.getElementById('send-message').addEventListener('click', () => {
+            sendMessage(document.getElementById('message-area').value);
+            document.getElementById('message-area').value = '';
+        })
+
+
+        // Variable Exchange
 
         function setParentVariable(parentVar){
             console.log("Parent is: ");
@@ -150,14 +161,7 @@
             popup_win.setPopUpVariable(popup_win);
         }
 
-
-        //Send message button handeling
-        document.getElementById('send-message').addEventListener('click', () => {
-            sendMessage(document.getElementById('message-area').value);
-            document.getElementById('message-area').value = '';
-        })
-
-
+        
         // Irrelevent style handeling logic
         const txt = document.querySelector('#message-area');
         function setNewSize() {
