@@ -3,10 +3,10 @@ let communication = [];
 let dialpadBtnContainer = document.getElementById("dialpad-btn-container");
 let popup_win;
 let parent;
+let call_object;
 
 popup_win = window.opener.getPopUpVariable();
-
-sendMessage("dialer_started","");
+sendMessage({header:"dialer_started",message:""});
 
 // document.addEventListener("contextmenu", (event) => event.preventDefault());
 
@@ -26,7 +26,7 @@ window.onbeforeunload = (event) => {
     event.preventDefault();
     return "";
   } else {
-    sendMessage("end_popup","");
+    sendMessage({header:"end_popup",message:""});
     return null;
   }
 };
@@ -156,10 +156,10 @@ function handleCallButtonTheme() {
   let btn = document.getElementById("dialpad-caller-btn");
   callActive = (callActive + 1) % 2;
   if (callActive) {
-    sendMessage("call_started",`${document.getElementById("dialpad-input").value}`);
+    sendMessage({header:"call_started",message:`${document.getElementById("dialpad-input").value}`});
     btn.style.backgroundColor = "#BA0001";
   } else {
-    sendMessage("call_ended","");
+    sendMessage({header:"call_ended",message:""});
     btn.style.backgroundColor = "#49B568";
   }
 }
@@ -180,16 +180,16 @@ function handleCallButtonTheme() {
             we access its recieveMessage function and use it to share message.
 
 */
-function sendMessage(header, message) {
+function sendMessage(ack) {
 
   // sending to remote
-  let ack = {header: header, message: message};
+  let ack = {header: ack.header, message: ack.message, object: ack.object};
   window.opener.recieveMessage(ack);
 
 
   // Local updation
-  console.log("Dialer:" + message);
-  communication.push("Parent#" + message);
+  console.log("Dialer:" + ack.message);
+  communication.push("Dialer#"+ack.header+"#"+ack.message);
   document.getElementById("messages").innerHTML += `Dialer: ${message} </br>`;
 }
 
@@ -198,22 +198,23 @@ function recieveMessage(ack) {
   if(ack.header == 'reload_parent'){
     console.log('sending var to parents');
     setTimeout(()=>{
-      sendParentVariable();
+      // sendParentVariable();
       sendPopUpVariable();
+      sendMessage({header:'call_object',object:call_object})
     },2000);
   }
   else if(ack.header=='call_object'){
-
+      call_object = ack.object;
   }
 // Local updation
-  console.log("Dialer:" + ack.message);
+  console.log("Dialer:" + ack.header);
   // communication.push("Dialer#" + message);
   document.getElementById("messages").innerHTML += `Parent: ${ack.message} </br>`;
 }
 
-// Button to send messege 
+// Button to send message 
 document.getElementById("send-message").addEventListener("click", () => {
-  sendMessage("communicate",document.getElementById("message-area").value);
+  sendMessage({header:"communicate",message:document.getElementById("message-area").value});
   document.getElementById("message-area").value = "";
 });
 

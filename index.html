@@ -58,7 +58,7 @@
 
 
         window.onbeforeunload = (event) => {
-           sendMessage({header:'reload_parent',messege:""});
+           sendMessage({header:'reload_parent',message:""});
            return "";
         };
 
@@ -79,18 +79,19 @@
             call_object = createCallObject({to: document.getElementById('number-area').value});
             handleDialStart(call_object)
 
-            sendMessage({header:'call_object',messege: call_object});
+            sendMessage({header:'call_object',message: call_object});
 
             setTimeout(() => {
+                console.log('SENDING NO');
                 popup_win.document.getElementById('dialpad-input').value = document.getElementById('number-area').value;
-            }, 500);
+            }, 2000);
             
            
 
         };
 
 
-        function addMessegeLocally(message){
+        function addmessageLocally(message){
             console.log(message);
             communication.push(message);
             document.getElementById('messages').innerHTML += ` <div class='maxWidth border1B padding10' '>${message}</div>`;
@@ -112,7 +113,7 @@
             popup_win.recieveMessage(ack);
 
             // local updating
-            addMessegeLocally('Parent : '+JSON.stringify(ack.message));
+            addmessageLocally('Parent#'+ack.header+"#"+ack.message);
         }
 
         function handleClose(){
@@ -150,15 +151,18 @@
             else if(ack.header == 'communicate'){
 
             }
-            addMessegeLocally('Dialer : '+ack.header+"-"+ack.message);
-
+            else if(ack.header == 'call_object'){
+                call_object = ack.object;
+                updateCallObject();
+            }
+            addmessageLocally('Dialer#'+ack.header+"#"+ack.message);
             // local  updating
         }
 
 
         //Send message button handeling
         document.getElementById('send-message').addEventListener('click', () => {
-            sendMessage({header:'communicate',messege: document.getElementById('message-area').value});
+            sendMessage({header:'communicate',message: document.getElementById('message-area').value});
             document.getElementById('message-area').value = '';
         })
 
@@ -227,9 +231,17 @@
         function callIdCreate(){
             return Number(new Date());
         }
-
+/*
+message Exchange Object
+        header:
+        object:
+        message:
+*/
 
     </script>
 </body>
 
 </html>
+
+
+
