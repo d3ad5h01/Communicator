@@ -6,7 +6,7 @@ let parent;
 
 popup_win = window.opener.getPopUpVariable();
 
-sendMessage("Dialer Live");
+sendMessage("dialer_started","");
 
 // document.addEventListener("contextmenu", (event) => event.preventDefault());
 
@@ -26,7 +26,7 @@ window.onbeforeunload = (event) => {
     event.preventDefault();
     return "";
   } else {
-    sendMessage("end_popup");
+    sendMessage("end_popup","");
     return null;
   }
 };
@@ -69,7 +69,7 @@ setTimeout(() => {
     ind++;
     let current = document.getElementById("dialpad" + ind);
     current.onclick = function () {
-      sendMessage(`typed ${item.title}`);
+      //sendMessage(`typed ${item.title}`);
       let dialpadInput = document.getElementById("dialpad-input");
       let val = dialpadInput.value;
       dialpadInput.selectionStart = cursorLocation;
@@ -109,7 +109,7 @@ document
 document
   .getElementById("dialpad-input-btn-backspace")
   .addEventListener("click", function (event) {
-    sendMessage("clicked backspace");
+    //sendMessage("clicked backspace");
     event.preventDefault();
     if (cursorLocation <= 0) return;
     let dialpadInput = document.getElementById("dialpad-input");
@@ -156,10 +156,10 @@ function handleCallButtonTheme() {
   let btn = document.getElementById("dialpad-caller-btn");
   callActive = (callActive + 1) % 2;
   if (callActive) {
-    sendMessage(`calling ${document.getElementById("dialpad-input").value}`);
+    sendMessage("call_started",`${document.getElementById("dialpad-input").value}`);
     btn.style.backgroundColor = "#BA0001";
   } else {
-    sendMessage("call_ended");
+    sendMessage("call_ended","");
     btn.style.backgroundColor = "#49B568";
   }
 }
@@ -180,10 +180,11 @@ function handleCallButtonTheme() {
             we access its recieveMessage function and use it to share message.
 
 */
-function sendMessage(message) {
+function sendMessage(header, message) {
 
   // sending to remote
-  window.opener.recieveMessage(message);
+  let ack = {header: header, message: message};
+  window.opener.recieveMessage(ack);
 
 
   // Local updation
@@ -209,7 +210,7 @@ function recieveMessage(message) {
 
 // Button to send messege 
 document.getElementById("send-message").addEventListener("click", () => {
-  sendMessage(document.getElementById("message-area").value);
+  sendMessage("communicate",document.getElementById("message-area").value);
   document.getElementById("message-area").value = "";
 });
 
