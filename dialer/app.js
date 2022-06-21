@@ -22,14 +22,54 @@ window.addEventListener(
 // This is to handle close window logic
 // If call is active then only show warning.
 window.onbeforeunload = (event) => {
+  sendMessage({header:'communication',message:"on close before"});
   if (callActive) {
-    event.preventDefault();
-    return "";
+    sendMessage({header:'communication',message:"call active"});
+    setTimeout(function() {
+      updateCallObject({header:'call_active_cancelled'});
+      sendMessage({header:'call_object',object:call_object});
+    },0);
+    return "Sure Wanna leave?? Call is active buddy...";
   } else {
-    sendMessage({header:"end_popup",message:""});
-    return null;
+    sendMessage({header:'communication',message:"not active 1"});
+    //sendMessage({header:"end_popup",message:""});
+    updateCallObject({header:'dialer_before_call_cancelled'});
+    sendMessage({header:'communication',message:"not active 2"});
+    sendMessage({header:'call_object',object:call_object});
+    sendMessage({header:'communication',message:"not active 3"});
+    return "";
   }
+  return "";
 };
+
+
+// window.onbeforeunload = (event) =>  {
+//   return '';
+// };
+
+// window.addEventListener('unload', function(event) {
+
+//   if(callActive){
+//     updateCallObject({header:'call_active_cancelled'});
+//     sendMessage({header:'call_object',object:call_object});
+//     // sendMessage({header: 'communicate', message:"me closed"});
+//   }
+//   else{
+//     updateCallObject({header:'dialer_before_call_cancelled'});
+//     sendMessage({header:'call_object',object:call_object});
+//   }});
+
+// window.onunload = (event) => {
+//   if(callActive){
+//     updateCallObject({header:'call_active_cancelled'});
+//     sendMessage({header:'call_object',object:call_object});
+//     // sendMessage({header: 'communicate', message:"me closed"});
+//   }
+//   else{
+//     updateCallObject({header:'dialer_before_call_cancelled'});
+//     sendMessage({header:'call_object',object:call_object});
+//   }
+// };
 
 let arr = [
   { title: "1", subtitle: "_" },
@@ -171,6 +211,7 @@ function handleCallButtonTheme() {
 
 
 
+
  /*
             Send Message
 
@@ -219,7 +260,19 @@ document.getElementById("send-message").addEventListener("click", () => {
 });
 
 
+function updateCallObject(ack){
+  sendMessage({header:"communicate",message:'updating prop'});
+  for (const property in ack) {
+   // console.log(`${property}: ${object[property]}`);
+    call_object[property] = ack[property] ;
+  }
+  sendMessage({header:"communicate",message:'updating prop end'});
 
+}
+
+
+
+/// COMMUNICATION GET SET
 function setParentVariable(parentVar){
   parent = parentVar;
 }
