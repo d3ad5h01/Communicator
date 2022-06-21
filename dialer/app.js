@@ -5,8 +5,8 @@ let popup_win;
 let parent;
 let call_object;
 let call_completed=0;
-popup_win = window.opener.getPopUpVariable();
-sendMessage({header:"dialer_started",message:""});
+//popup_win = window.opener.getPopUpVariable();
+send("dialer_started","");
 setInterval(()=>{
   console.log(call_object);
 },2000);
@@ -25,10 +25,10 @@ window.addEventListener(
 // If call is active then only show warning.
 window.onbeforeunload = (event) => {
   if (callActive) {
-    sendMessage({header:'call_active_cancelled',});
+    send('call_active_cancelled',"");
     return "Sure Wanna leave?? Call is active buddy...";
   } else {
-    if(call_completed==0) sendMessage({header:"ended_before_call_started",message:""});
+    if(call_completed==0) send("ended_before_call_started","");
     return null;
   }
 };
@@ -160,144 +160,84 @@ function handleCallButtonTheme() {
   let btn = document.getElementById("dialpad-caller-btn");
   callActive = (callActive + 1) % 2;
   if (callActive) {
-    sendMessage({header:"call_started",message:`${document.getElementById("dialpad-input").value}`});
+    call_object.to = document.getElementById("dialpad-input").value;
+    send("call_started","");
     btn.style.backgroundColor = "#BA0001";
   } else {
     call_completed=1;
-    sendMessage({header:"call_ended",message:""});
+    send("call_ended","");
     btn.style.backgroundColor = "#49B568";
   }
 }
-/////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
-// Communication logic 
-/////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
 
-
-
-
- /*
-            Send Message
-
-            window.opener is address of parent window
-            We can access its function so,
-
-            we access its recieveMessage function and use it to share message.
-
-*/
-function sendMessage(ack) {
-
-  // sending to remote
-  //let ack = {header: ack.header, message: ack.message, object: ack.object};
-  window.opener.recieveMessage(ack);
-
-
-  // Local updation
-  console.log("Dialer:" + ack.message);
-  communication.push("Dialer#"+ack.header+"#"+ack.message);
-  document.getElementById("messages").innerHTML += `Dialer: ${ack.message} </br>`;
-}
-
-function recieveMessage(ack) {
-
-  if(ack.header == 'reload_parent'){
-    console.log('sending var to parents');
-    setTimeout(()=>{
-      // sendParentVariable();
-      sendPopUpVariable();
-      console.log('Sending call object');
-      console.log(call_object);
-      sendCallObject();
-      console.log('Sending call object');
-      console.log({header:'call_object',object: call_object});
-    },4000);
-  }
-  else if(ack.header=='call_object'){
-      call_object = ack.object;
-  }
-// Local updation
-  console.log("Dialer:" + ack.header);
-  // communication.push("Dialer#" + message);
-  document.getElementById("messages").innerHTML += `Parent: ${ack.message} </br>`;
-}
-
-// Button to send message 
 document.getElementById("send-message").addEventListener("click", () => {
-  sendMessage({header:"communicate",message:document.getElementById("message-area").value});
+  send("chat",document.getElementById("message-area").value);
   document.getElementById("message-area").value = "";
 });
 
 
-function updateCallObject(ack){
-  sendMessage({header:"communicate",message:'updating prop'});
-  for (const property in ack) {
-   // console.log(`${property}: ${object[property]}`);
-    call_object[property] = ack[property] ;
-  }
-  sendMessage({header:"communicate",message:'updating prop end'});
 
-}
 
 
 function send(type,object){
-  if(type=='popup_variable'){
-
+  if(type == 'popup_variable'){
+      return window.opener.recieve(type,window);
   }
-  else if(type == 'communicate'){
-
+  else if(type == 'chat'){
+    window.opener.recieve(type,object);
   }
   else if(type == 'call_object'){
+      return window.opener.recieve(type,call_object);
+  }
+  else if(type == 'ended_before_call_started' ){
+      call_object.status = type;
+      window.opener.recieve(type,call_object);
+  }
+  else if(type == 'call_active_cancelled'){
+    call_object.status = type;
+    window.opener.recieve(type,call_object);
+  }
+  else if (type == 'call_ended'){
+    call_object.status = type;
+    window.opener.recieve(type,call_object);
 
   }
+  else if(type == 'call_started'){
+    call_object.status = type;
+    window.opener.recieve(type,call_object);
+  }
 }
+
+// function getTo(type){
+//   if(type == 'popup_variable'){
+//     window.opener.getFrom(type);
+//   }
+// }
+
 
 
 function recieve(type,object){
+  console.log(type);
+  console.log(object);
   if(type=='popup_variable'){
-
+      popup_win = object;
   }
-  else if(type == 'communicate'){
+  else if(type == 'chat'){
 
   }
   else if(type == 'call_object'){
-
+      call_object = object;
   }
-}
-/// COMMUNICATION GET SET
-function setParentVariable(parentVar){
-  parent = parentVar;
-}
+  else if(type == 'reload_parent'){
+    console.log('sending var to parents');
+    
+      // let a = false;
+      // while(getTo('popup_variable')==null){
 
-function getParentVariable(){
-  return parent;
-}
-
-function sendParentVariable(){
-  console.log("sending parent to parent");
-  window.opener.setParentVariable(parent);
-}
-
-function setPopUpVariable(childVar){
-  popup_win = childVar;
-}
-
-function getPopUpVariable(){
-  return window;
-}
-
-
-
-function sendPopUpVariable(){
-  console.log('sending popup to parent')
-  window.opener.setPopUpVariable(window);
-  //window.opener.popup_win = window;
-}
-
-function sendCallObject(){
-  window.opener.recieveCallObject(call_object);
-}
-
-function recieveCallObject(call_object_var){
-  call_object = call_object_var;
-}
+      setTimeout(()=>{
+        send('popup_variable',window);
+        send('call_object',call_object)
+      },3000);
+        
+      }  
+  }
