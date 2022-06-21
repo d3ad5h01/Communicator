@@ -13,17 +13,17 @@
 
 <body>
     <div class="root-container flexRow centerRow flexGap" id="root-box">
-        <div class="content-container flexCol centerCol border1B borderRadius padding10 width50vw" id="content-box">
+        <div class="content-container flexCol centerCol border1B borderRadius padding10 width50vw " id="content-box">
             <div class="content-header-container flexRow  padding10" id="content-header-box">
                 <input class="textarea1" name="myText" id="number-area" rows="1" placeholder="Number to call.." maxlength="400"></input>
                 </br>
                 <button id="dial-button"  class="button-6 backgroundGreen">DIAL</button>
             </div>    
-            <div class="content-body-container border1B padding10 maxWidth" id="content-body-box">
+            <div class="content-body-container border1B padding10 maxWidth maxHeight2 overflowScroll" id="content-body-box">
                 <h2>Calls</h2>
             </div>
         </div>
-        <div class="sidebar-container flexCol centerCol" id="sidebar-box">
+        <div class="sidebar-container flexCol centerCol maxHeight1" id="sidebar-box">
             <div id="messages">
                 <h3>Messages</h3>
             </div>
@@ -136,13 +136,19 @@
             
         */
         function recieveMessage(ack) {
-            if (ack.header == 'call_ended'){
+
+            if(ack.header == 'ended_before_call_started' ){
                 call_object.status = ack.header;
                 updateCallObject();
-               handleClose();
+                handleClose();
             }
-            else if(ack.header == 'end_popup'){
-                call_object.status = 'CALL_CANCALLED';
+            else if( ack.header == 'call_active_cancelled'){
+                call_object.status = ack.header;
+                updateCallObject();
+                handleClose();
+            }
+            if (ack.header == 'call_ended'){
+                call_object.status = ack.header;
                 updateCallObject();
                 handleClose();
             }
@@ -215,18 +221,15 @@
         // id, duration, to , started 
 
         function updateCallObject(){
-
             let ack = call_object;
-            document.getElementById(`${call_object.id}`).innerHTML = `<div class='maxWidth border1B padding10' id='${ack.id}'> ID: ${ack.to} </br> TO: ${ack.id} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration} </div>`;
+            document.getElementById(`${call_object.id}`).innerHTML = `ID: ${ack.id} </br> TO: ${ack.to} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration}`;
         }   
-
         function addInCallBox(ack){
-            document.getElementById('content-body-box').innerHTML+= `<div class='maxWidth border1B padding10' id='${ack.id}'> ID: ${ack.to} </br> TO: ${ack.id} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration} </div>`;
+            document.getElementById('content-body-box').innerHTML += `<div class='border1B padding10' id='${ack.id}'> ID: ${ack.id} </br> TO: ${ack.to} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration}`;
         }
         function handleDialStart(ack){
             addInCallBox(ack);
         }
-
         function createCallObject(ack){
             return {id: callIdCreate(), duration: "NA" , to:ack.to, started: new Date(), status:'DIALER_STARTED'};
         }

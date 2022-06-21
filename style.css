@@ -143,3 +143,14 @@ textarea {
 }
 
 
+.maxHeight1{
+  max-height: 95vh;
+}
+
+.maxHeight2{
+  max-height: 80vh;
+}
+
+.overflowScroll{
+  overflow: scroll;
+}

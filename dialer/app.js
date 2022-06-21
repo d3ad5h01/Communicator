@@ -4,7 +4,7 @@ let dialpadBtnContainer = document.getElementById("dialpad-btn-container");
 let popup_win;
 let parent;
 let call_object;
-
+let call_completed=0;
 popup_win = window.opener.getPopUpVariable();
 sendMessage({header:"dialer_started",message:""});
 
@@ -22,54 +22,16 @@ window.addEventListener(
 // This is to handle close window logic
 // If call is active then only show warning.
 window.onbeforeunload = (event) => {
-  sendMessage({header:'communication',message:"on close before"});
   if (callActive) {
-    sendMessage({header:'communication',message:"call active"});
-    setTimeout(function() {
-      updateCallObject({header:'call_active_cancelled'});
-      sendMessage({header:'call_object',object:call_object});
-    },0);
+    sendMessage({header:'call_active_cancelled',});
     return "Sure Wanna leave?? Call is active buddy...";
   } else {
-    sendMessage({header:'communication',message:"not active 1"});
-    //sendMessage({header:"end_popup",message:""});
-    updateCallObject({header:'dialer_before_call_cancelled'});
-    sendMessage({header:'communication',message:"not active 2"});
-    sendMessage({header:'call_object',object:call_object});
-    sendMessage({header:'communication',message:"not active 3"});
-    return "";
+    if(call_completed==0) sendMessage({header:"ended_before_call_started",message:""});
+    return null;
   }
-  return "";
 };
 
 
-// window.onbeforeunload = (event) =>  {
-//   return '';
-// };
-
-// window.addEventListener('unload', function(event) {
-
-//   if(callActive){
-//     updateCallObject({header:'call_active_cancelled'});
-//     sendMessage({header:'call_object',object:call_object});
-//     // sendMessage({header: 'communicate', message:"me closed"});
-//   }
-//   else{
-//     updateCallObject({header:'dialer_before_call_cancelled'});
-//     sendMessage({header:'call_object',object:call_object});
-//   }});
-
-// window.onunload = (event) => {
-//   if(callActive){
-//     updateCallObject({header:'call_active_cancelled'});
-//     sendMessage({header:'call_object',object:call_object});
-//     // sendMessage({header: 'communicate', message:"me closed"});
-//   }
-//   else{
-//     updateCallObject({header:'dialer_before_call_cancelled'});
-//     sendMessage({header:'call_object',object:call_object});
-//   }
-// };
 
 let arr = [
   { title: "1", subtitle: "_" },
@@ -199,6 +161,7 @@ function handleCallButtonTheme() {
     sendMessage({header:"call_started",message:`${document.getElementById("dialpad-input").value}`});
     btn.style.backgroundColor = "#BA0001";
   } else {
+    call_completed=1;
     sendMessage({header:"call_ended",message:""});
     btn.style.backgroundColor = "#49B568";
   }
