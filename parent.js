@@ -107,6 +107,10 @@ function callIdCreate(){
     return Number(new Date());
 }
 
+
+
+
+//// communication /////
 function send(type,object){
     addmessageLocally("Parent"+type);
     if(!isPopupActive)
