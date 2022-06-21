@@ -7,7 +7,9 @@ let call_object;
 let call_completed=0;
 popup_win = window.opener.getPopUpVariable();
 sendMessage({header:"dialer_started",message:""});
-
+setInterval(()=>{
+  console.log(call_object);
+},2000);
 // document.addEventListener("contextmenu", (event) => event.preventDefault());
 
 // TO prevent resize of popup window.
@@ -204,8 +206,12 @@ function recieveMessage(ack) {
     setTimeout(()=>{
       // sendParentVariable();
       sendPopUpVariable();
-      sendMessage({header:'call_object',object:call_object})
-    },2000);
+      console.log('Sending call object');
+      console.log(call_object);
+      sendCallObject();
+      console.log('Sending call object');
+      console.log({header:'call_object',object: call_object});
+    },4000);
   }
   else if(ack.header=='call_object'){
       call_object = ack.object;
@@ -234,7 +240,30 @@ function updateCallObject(ack){
 }
 
 
+function send(type,object){
+  if(type=='popup_variable'){
 
+  }
+  else if(type == 'communicate'){
+
+  }
+  else if(type == 'call_object'){
+
+  }
+}
+
+
+function recieve(type,object){
+  if(type=='popup_variable'){
+
+  }
+  else if(type == 'communicate'){
+
+  }
+  else if(type == 'call_object'){
+
+  }
+}
 /// COMMUNICATION GET SET
 function setParentVariable(parentVar){
   parent = parentVar;
@@ -257,7 +286,18 @@ function getPopUpVariable(){
   return window;
 }
 
+
+
 function sendPopUpVariable(){
   console.log('sending popup to parent')
   window.opener.setPopUpVariable(window);
+  //window.opener.popup_win = window;
+}
+
+function sendCallObject(){
+  window.opener.recieveCallObject(call_object);
+}
+
+function recieveCallObject(call_object_var){
+  call_object = call_object_var;
 }
