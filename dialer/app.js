@@ -1,6 +1,6 @@
 let callActive = 0,communication = [],dialpadBtnContainer = document.getElementById("dialpad-btn-container");
 let popup_win, parent,call_object,call_completed=0;
-
+let res_interval;
 
 send("dialer_started","");
 setInterval(()=>{
@@ -229,11 +229,17 @@ function recieve(type,object){
     
       // let a = false;
       // while(getTo('popup_variable')==null){
-
-      setTimeout(()=>{
-        send('popup_variable',window);
-        send('call_object',call_object)
-      },3000);
+    res_interval = setInterval(()=>{
+      send('popup_variable',window);
+      send('call_object',call_object);
+    },2500);
+      // setTimeout(()=>{
+       
+      // },3000);
         
-      }  
+  }
+  else if(type == 'ack'){
+    console.log('recived ack');
+    clearInterval(res_interval);
+  }  
   }

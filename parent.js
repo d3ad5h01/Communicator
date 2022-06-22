@@ -127,6 +127,10 @@ function send(type,object){
     else if(type == 'reload_parent'){
         popup_win.recieve(type,"");
     }
+    else if(type == 'ack'){
+        console.log('sending ack');
+        popup_win.recieve('ack','');
+    }
 
 }
 
@@ -136,7 +140,8 @@ function recieve(type,object){
     console.log(object);
     if(type=='popup_variable'){
         popup_win = object;
-        return popup_win!=null;
+        send('ack','');
+        //return popup_win!=null;
     }
     else if(type == 'chat'){
 
