@@ -36,6 +36,12 @@ body {
   width: 50vw;
 }
 
+
+.width30vw{
+  width: 30vw;
+}
+
+
 .border1B{
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -127,15 +133,20 @@ textarea {
   overflow: scroll;
 }
 
-.textarea1 {
-  border: 0;
+.dialArea {
   outline: 0;
-  background: white;
+  background: transparent;
   padding: 20px;
-  font-weight: 500;
+  font-weight: 100;
   font-size: 1em;
   color: #343434;
-  width: 40vw;
+  border-radius: 20px 0px 0px 20px;
+}
+
+.dialArea:focus {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
 }
 
 
