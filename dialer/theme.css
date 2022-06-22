@@ -1,0 +1,81 @@
+.call-disconnected {
+    --call: #19e17d;
+    --call_dark: #0ab464;
+}
+
+.call-connected {
+    --call: #e64b50;
+    --call_dark: #c83c4b;
+}
+
+.theme-silver {
+    --main: #c8d2dc;
+    --main_light: #ebf0f5;
+    --main_dark: #b4bec8;
+    --main_darker: #5a646e;
+
+    --common_text: #141414;
+}
+
+.theme-charcoal {
+    --main: #736e6e;
+    --main_light: #b4aaaa;
+    --main_dark: #3c3c3c;
+    --main_darker: #191414;
+
+    --common_text: #faf5f0;
+}
+
+.theme-gold {
+    --main: #e1af32;
+    --main_light: #fae132;
+    --main_dark: #dca000;
+    --main_darker: #503c00;
+
+    --common_text: #141414;
+}
+
+.theme-copper {
+    --main: #c87d41;
+    --main_light: #faaf7d;
+    --main_dark: #964b19;
+    --main_darker: #281400;
+
+    --common_text: #faf5f0;
+}
+
+.theme-ocean {
+    --main: #19c8e1;
+    --main_light: #4be6ff;
+    --main_dark: #0aafd2;
+    --main_darker: #053264;
+
+    --common_text: #faf5f0;
+}
+
+.theme-fire {
+    --main: #e69128;
+    --main_light: #ffdc73;
+    --main_dark: #c86414;
+    --main_darker: #c8190a;
+
+    --common_text: #faf5f0;
+}
+
+.theme-grass {
+    --main: #b4e119;
+    --main_light: #64ff96;
+    --main_dark: #7daf19;
+    --main_darker: #194b19;
+
+    --common_text: #141414;
+}
+
+.theme-lilac {
+    --main: #af4be1;
+    --main_light: #e196f0;
+    --main_dark: #7d14af;
+    --main_darker: #1e053c;
+
+    --common_text: #faf5f0;
+}

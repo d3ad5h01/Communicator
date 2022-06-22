@@ -1,357 +1,303 @@
-body{
-    height: 666px;
-    width: 426px;
-    padding: 0px 0px 0px 0px;
+body {
+    font-family: monospace;
     margin: 0;
-    background-color: #909090;
-    /* overflow-x: hidden; */
-    
-}
-.dialpad{
-    padding: 0px;
-    background-color: #d60606;
-    width: fit-content;
-}
-.wrapper {
-    border:rgb(144, 144, 144) solid; 
-    background-color: #444444;
-    width: 400px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
-    border-radius: 0px 0px 10px 10px;
-    padding: 10px;
-  }
-
-  .flexCol{
-    display: flex;
-    flex-direction: column; 
-  }
-
-  .flexRow{
-    display: flex;
-    flex-direction: row; 
-  }
-
-  .centerRow{
-    justify-content: center;
-  }
-
-  .centerCol{
-    align-items: center;
-  }
-
-.title-text{
-    background-color: transparent;
-    font-size: 40px;
-}
-
-.subline-text{
-    background-color: transparent;
-    font-size: medium;
-}
-
-.removeDefaultPara{
     padding: 0;
-    margin: 0;
+    height: 100vh;
+    width: 100vw;
 }
 
+.root-container {
+    background-image: linear-gradient(to bottom, var(--main_dark), var(--main_darker));
+    color: var(--common_text);
+    font-size: 32px;
 
-.dial-area{
-    margin: 0;
-    background: rgb(144, 144, 114);
-    border: 1px solid rgb(60, 63, 68);
-    border-radius: 4px;
-    font-size: 13px;
-    color: rgb(179, 179, 179);
-    appearance: none;
-    height: 30px;
-    transition: border 0.15s ease 0s;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hide {
+    display: none !important;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.main-page, .settings-page {
+    /* to overlap both the pages */
+    position: absolute;
     
+    padding: 20px;
+    transition: transform 0.4s ease-out;
 }
 
-.dial-area :focus{
-    outline: none;
-    box-shadow: none;
-    border-color: rgb(100, 153, 255);
+.shift-right {
+    transform: translateX(100%);
 }
 
-
-.btn-icon{
-    height: 25px;
-    width: 25px;
-    background: #1f1f1f;
+.shift-left {
+    transform: translateX(-100%);
 }
 
+.bordered-page {
+    /* to place the settings, cross button*/
+    position: relative;
 
-form {
-    display:flex;
-    flex-direction:row;
-    border: solid grey;
-    border-bottom: none;
-    padding:2px;
-    background-color: #1f1f1f;
-    height: 80px;
-    border-radius: 10px 10px 0px 0px;
-  }
-  
-.dial-input-area {
-    flex-grow:2;
-    background: #1f1f1f;
-    color: rgb(255, 255, 255);
-    border:none;
-    width: 100px;
-    font-size: 25px;
-    margin-right: 10px;
-    font-family: 'Courier New';
-}
-  
-.dial-input-area:focus {
-    outline: none;
-  }
-  
-.dial-input-area-button {
-    border:1px solid #1f1f1f;
-    background:#1f1f1f;
-    color:white;
-}
-
-.dialpad-width{
-    width: 416px;
-}
-
-.borderRadius10{
+    border: 3px solid var(--main_dark);
     border-radius: 10px;
 }
 
-
-.fontColor{
-    color: #ffffff;
+.flip-3d {
+    position: relative;
+    width: 360px;
+    height: 380px;
+    background-color: transparent;
 }
 
+.flip-3d > .flip-side {
+    position: absolute;
+    backface-visibility: hidden;
+    transition: transform 0.4s linear 0s;
+}
 
+.rotate-180 {
+    transform: perspective(750px) rotateY(-180deg);
+}
 
+.rotate0 {
+    transform: perspective(750px) rotateY(0deg);
+}
 
+.rotate180 {
+    transform: perspective(750px) rotateY(180deg);
+}
 
-.dialbtn-wrapper{
+.flex-row {
     display: flex;
-    background-color: transparent;
-    justify-content: center;
+    flex-flow: row nowrap;
+}
+
+.flex-column {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.row-center {
     align-items: center;
 }
 
-.dialpad-btn{
-    position: relative;
-    background-color: #121212;
-    border-radius: 40px;
-    font-size: 16px;
-    color: white;
-    padding: 0.8em 1.8em;
-    cursor:pointer;
-    text-align: center;    
+.column-center {
+    justify-content: center;
+}
+
+.grid-container {
+    margin: auto;
+    padding: 10px;
+
+    display: grid;
+    align-items: stretch;
+}
+
+.column-2 {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 40px;
+    row-gap: 20px;
+}
+
+.column-3 {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 20px;
+    row-gap: 10px;
+}
+
+.grid-item {
+    text-align: center;
+}
+
+.blank {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding: 20px;
+}
+
+.switch-box {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding: 5px;
+    border: 1.5px solid var(--main_dark);
+    border-radius: 10px;
+}
+
+#switch-text {
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 20px;
+}
+
+input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+label {
     cursor: pointer;
-    transition-duration: 0.4s;
-    -webkit-transition-duration: 0.4s; 
-    height: 60px;
     width: 60px;
-  }
-  
-  .dialpad-btn:hover {
-    transition-duration: 0.1s;
-    background-color: #3A3A3A;
-  }
-  
-  .dialpad-btn:after {
-    content: "";
+    height: 30px;
+    background: var(--main_dark);
     display: block;
-    position: absolute;
-    border-radius: 40px; 
-    left: 0;
-    top:0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: all 0.5s;
-    box-shadow: 0 0 5px 20px rgba(255, 255, 255, 0.326);
-  }
-  
-  .dialpad-btn:active:after {
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.384);
-    position: absolute;
-    border-radius: 40px; 
-    left: 0;
-    top:0;
-    opacity: 1;
-    transition: 0s;
-  }
-  
-  .dialpad-btn:active {
-    top: 1px;
-  }
-  
-  .dialpad-btn-empty{
-    pointer-events: none;
-    cursor: default;
-    background-color: transparent;
-  }
-
-
-  .dialpad-btn-caller{
+    border-radius: 30px;
     position: relative;
-    background-color: #49B568;
-    border-radius: 100%;
-    font-size: 16px;
-    color: white;
-    padding: 0.8em 1.8em;
-    cursor:pointer;
-    text-align: center;    
-    cursor: pointer;
-    transition-duration: 0.4s;
-    -webkit-transition-duration: 0.4s; 
-    height: 60px;
-    width: 30px;
-  }
-  
-  .dialpad-btn-caller:hover {
-    transition-duration: 0.1s;
-    background-color: #49b568dc;
-  }
-  
-  .dialpad-btn-caller:after {
-    content: "";
+}
+
+label:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    background: var(--main_light);
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+input:checked+label {
+    background: var(--main_darker);
+}
+
+input:checked+label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+.settings-button {
+    padding: 10px 30px;
+    font-size: 22px;
+    background-color: var(--main_darker);
+    color: var(--main_light);
+    border: transparent;
+    border-radius: 10px;
+}
+
+.settings-button:hover {
+    background-color: var(--main);
+    color: var(--main_darker);
+}
+
+.settings-button:focus {
+    outline: none !important;
+}
+
+.bars-box,
+.cross-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#bars-button,
+#cross-button {
+    background-color: transparent;
+    border: transparent;
+    border-radius: 50%;
+    cursor: pointer !important;
+}
+
+#bars-button:hover,
+#cross-button:hover {
+    background-color: var(--main_dark);
+}
+
+#bars-button:focus,
+#cross-button:focus {
+    outline: none !important;
+}
+
+.phone-number {
+    padding: 25px 10px;
+    cursor: default;
+}
+
+.timer {
+    grid-column-start: 1;
+    grid-column-end: 3;
+
+    padding: 25px 10px;
+    cursor: default;
+}
+
+#country-code,
+#number-cursor {
+    margin: 0;
+    padding: 0;
+    color: var(--main_light);
+}
+
+.editable {
+    cursor: text !important;
+}
+
+.special-digit,
+.digit {
     display: block;
-    position: absolute;
-    border-radius: 40px; 
-    left: 0;
-    top:0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: all 0.5s;
-    box-shadow: 0 0 5px 20px rgba(255, 255, 255, 0.326);
-  }
-  
-  .dialpad-btn-caller:active:after {
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.384);
-    position: absolute;
-    border-radius: 40px; 
-    left: 0;
-    top:0;
-    opacity: 1;
-    transition: 0s;
-  }
-  
-  .dialpad-btn-caller:active {
-    top: 1px;
-  }
+    padding: 15px 30px;
 
+    background-color: var(--main);
+    border: 5px solid transparent;
+    border-radius: 40%;
+}
 
-  .dialpad-btn-caller-icon{
-    height: 50px;
-    width: 50px;
-    background: transparent;
-  }
+.special-digit:hover,
+.digit:hover {
+    background-color: var(--main_dark);
+    border: 5px solid var(--main_light);
+    cursor: pointer;
+}
 
+.call {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
 
+#phone-button {
+    background-color: var(--call);
+    border: 5px solid transparent;
+    border-radius: 50%;
+}
 
+#phone-button:hover {
+    background-color: var(--call_dark);
+    border: 5px solid var(--call);
+    cursor: pointer;
+}
 
-  #messages{
-    border: 1px solid rgba(0, 0, 0, 0.1);
+#phone-button:focus {
+    outline: none !important;
+}
+
+select {
+    padding: 5px;
+    font-size: 15px;
+    font-weight: bold;
+
+    color: var(--main_darker);
     border-radius: 10px;
-    padding: 5%;
-    width: fit-content;
-    overflow: scroll;
-    border-radius: 10px;
-  }
-
-  .conversation{
-    background-color:#c4c4c4;
-    border-radius: 10px;
-    width: 426px;
-  }
-
-
-  .textarea1 {
-
-    display:block;
-    box-sizing: border-box;
-    width:100%;
-    resize: none;
-    overflow-y: hidden;
-    
-    /* optional CSS */
-    border: 0;
-    outline: 0;
-    background: white;
-    border-radius: 20px;
-    padding:20px;
-    font-weight:500;
-    font-size: 1.0em;
-    color: #343434;
-   
-  }
-
-
-
-/* CSS */
-.button-6 {
-  align-items: center;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: .25rem;
-  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
-  box-sizing: border-box;
-  color: rgba(0, 0, 0, 0.85);
-  cursor: pointer;
-  display: inline-flex;
-  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  justify-content: center;
-  line-height: 1.25;
-  margin: 0;
-  min-height: 3rem;
-  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
-  position: relative;
-  text-decoration: none;
-  transition: all 250ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: baseline;
-  width: auto;
+    outline: none !important;
 }
 
-.button-6:hover,
-.button-6:focus {
-  border-color: rgba(0, 0, 0, 0.15);
-  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-  color: rgba(0, 0, 0, 0.65);
+#mute-button,
+#hold-button {
+    background-color: var(--main_dark);
+    border: transparent;
+    border-radius: 50%;
+    outline: none !important;
+    cursor: pointer;
 }
 
-.button-6:hover {
-  transform: translateY(-1px);
-}
-
-.button-6:active {
-  background-color: #F0F0F1;
-  border-color: rgba(0, 0, 0, 0.15);
-  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
-  color: rgba(0, 0, 0, 0.65);
-  transform: translateY(0);
-}
-
-.backgroundWhite{
-     background-color: #cef1d7 !important;
-}
-
-.borderNone{
-  border: none;
-  border-radius: 10px;
-}
-
-
-.margin0{
-  padding: 0px 0px 0px 0px;
-  margin: 0;
+.active-button,
+#mute-button:hover,
+#hold-button:hover {
+    background-color: var(--main_darker) !important;
 }

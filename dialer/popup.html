@@ -9,54 +9,135 @@
           content="width=device-width, initial-scale=1.0">
     <title>Dialer</title>
 
-    <link rel="stylesheet"
-          href="./style.css"
+    <link href="./theme.css"
+          rel="stylesheet"
+          type="text/css">
+    <link href="./style.css"
+          rel="stylesheet"
           type="text/css">
 </head>
 
-<body >
-    <div class="root-container">
-        <div class="dialpad flexCol centerCol borderRadius10">
-            <form class="dialpad-width ">
-                <button class="dial-input-area-button">
-                    <img class='btn-icon'
-                         src="./images/vertical.png" />
-                </button>
-                <input class="dial-input-area"
-                       id="dialpad-input" />
-                <button class="dial-input-area-button"
-                        id="dialpad-input-btn-backspace">
-                    <img class='btn-icon'
-                         src="./images/backspace.png">
-                </button>
-            </form>
-            <div class="wrapper"
-                 id="dialpad-btn-container"></div>
-        </div>
-    </div>
-    </br>
-    <div class="conversation flexCol centerCol">
-        <div id="messages">
-            <h3>Messages</h3>
-        </div>
-        </br>
-        <form class="backgroundWhite borderNone">
-            <textarea class='textarea1'
-                      name="myText"
-                      id="message-area"
-                      rows="1"
-                      placeholder="Type Message here..."
-                      maxlength="400"></textarea>
-        </form>
-        </br>
-        <button id="send-message"
-                class="button-6 backgroundWhite">Send to Parent</button>
-        </br>
-    </div>
-    <!-- </div> -->
+<body>
+    <div class="root-container flex-row row-center column-center theme-silver">
 
+        <div class="main-page flex-row row-center column-center">
+            <div class="bordered-page flex-row row-center column-center">
+                <div class="bars-box">
+                    <button class="inject-svg"
+                            id="bars-button"></button>
+                </div>
 
-    <script src="./app.js"></script>
+                <div class="flex-column row-center column-center">
+                    <div class="flex-item phone-number flex-row row-center column-center">
+                        <span id="country-code">+1</span>
+                        <div class="dialed-number flex-row row-center column-center">
+                            <!-- <span class="editable"
+                                      id="position-0">9</span> -->
+                            <span id="number-cursor">|</span>
+                        </div>
+                    </div>
+
+                    <div class="flex-item flip-3d flex-row row-center column-center">
+                        <div class="before-call flip-side rotate0 grid-container column-3">
+                            <div class="grid-item digit">1</div>
+                            <div class="grid-item digit">2</div>
+                            <div class="grid-item digit">3</div>
+                            <div class="grid-item digit">4</div>
+                            <div class="grid-item digit">5</div>
+                            <div class="grid-item digit">6</div>
+                            <div class="grid-item digit">7</div>
+                            <div class="grid-item digit">8</div>
+                            <div class="grid-item digit">9</div>
+                            <div class="grid-item special-digit">*</div>
+                            <div class="grid-item digit">0</div>
+                            <div class="grid-item special-digit">#</div>
+                        </div> <!-- </div class="grid-container"> -->
+
+                        <div class="after-call flip-side rotate180 grid-container column-2">
+                            <div class="grid-item timer">
+                                <span id="time-h">-</span>:<span id="time-m">-</span>:<span id="time-s">-</span>
+                            </div>
+                            <div class="grid-item flex-row row-center column-center">
+                                <button class="inject-svg"
+                                        id="mute-button"></button>
+                            </div>
+                            <div class="grid-item flex-row row-center column-center">
+                                <button class="inject-svg"
+                                        id="hold-button"></button>
+                            </div>
+                        </div> <!-- </div class="grid-container"> -->
+                    </div> <!-- </div class="flip-3d"> -->
+
+                    <div class="flex-item call call-disconnected">
+                        <button class="inject-svg"
+                                id="phone-button"></button>
+                    </div>
+                </div>
+            </div> <!-- </div class="main-border"> -->
+        </div> <!-- </div class="main-page"> -->
+
+        <div class="settings-page flex-row row-center column-center shift-right invisible">
+            <div class="bordered-page flex-row row-center column-center">
+
+                <div class="cross-box">
+                    <button class="inject-svg"
+                            id="cross-button"></button>
+                </div>
+
+                <div class="grid-container column-2">
+                    <div class="grid-item blank"></div>
+                    <div class="grid-item flex-row row-center column-center">
+                        <select id="theme">
+                            <option value=""
+                                    disabled
+                                    selected>Default Theme</option>
+                            <option value="theme-silver">Silver</option>
+                            <option value="theme-charcoal">Charcoal</option>
+                            <option value="theme-gold">Gold</option>
+                            <option value="theme-copper">Copper</option>
+                            <option value="theme-ocean">Ocean</option>
+                            <option value="theme-fire">Fire</option>
+                            <option value="theme-grass">Grass</option>
+                            <option value="theme-lilac">Lilac</option>
+                        </select>
+                    </div>
+                    <div class="grid-item flex-row row-center column-center">
+                        <select id="country">
+                            <option value=""
+                                    disabled
+                                    selected
+                                    hidden>Country</option>
+                            <option value="+1">USA</option>
+                            <option value="+44">UK</option>
+                            <option value="+91">India</option>
+                        </select>
+                    </div>
+                    <div class="grid-item flex-row row-center column-center">
+                        <select id="history">
+                            <option value=""
+                                    disabled
+                                    selected
+                                    hidden>Dialed Numbers</option>
+                            <!-- <option value="9876543210">9876543210</option> -->
+                        </select>
+                    </div>
+                    <div class="grid-item switch-box flex-row row-center column-center">
+                        <span id="switch-text">Developer<br>Mode</span>
+                        <input id="switch"
+                               type="checkbox"
+                               checked />
+                        <label for="switch"
+                               id="switch-label"></label>
+                    </div>
+                </div> <!-- </div class="grid-container"> -->
+            </div> <!-- </div class="main-border"> -->
+        </div> <!-- </div class="settings-page"> -->
+    </div> <!-- </div class="root-container"> -->
+
+    <script src="./svg.js"></script>
+    <script src="./comms.js"></script>
+    <script type="module"
+            src="./app.js"></script>
 </body>
 
 </html>
