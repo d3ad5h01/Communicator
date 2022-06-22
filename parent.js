@@ -112,7 +112,7 @@ function callIdCreate(){
 
 //// communication /////
 function send(type,object){
-    addmessageLocally("Parent"+type);
+    addmessageLocally("Parent#"+type);
     if(!isPopupActive)
         return;
     if(type=='popup_variable'){
@@ -132,7 +132,7 @@ function send(type,object){
 
 
 function recieve(type,object){
-    addmessageLocally('Popup'+type);
+    addmessageLocally('Popup#'+type);
     console.log(object);
     if(type=='popup_variable'){
         popup_win = object;
@@ -147,25 +147,21 @@ function recieve(type,object){
         return call_object!=null;
     }
     else if(type == 'ended_before_call_started' ){
-        //call_object.status = type;
         call_object = object;
         updateCallObject();
         handleClose();
     }
     else if(type == 'call_active_cancelled'){
-        //call_object.status = type;
         call_object = object;
         updateCallObject();
         handleClose();
     }
     else if (type == 'call_ended'){
-        //call_object.status = type;
         call_object = object;
         updateCallObject();
         handleClose();
     }
     else if(type == 'call_started'){
-        //call_object.status = type;
         call_object = object;
         updateCallObject();
     }

@@ -73,7 +73,6 @@ body {
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: baseline;
-  width: 330px;
 }
 
 .button-6:hover,
@@ -129,9 +128,6 @@ textarea {
 }
 
 .textarea1 {
-  display: block;
-  box-sizing: border-box;
-
   border: 0;
   outline: 0;
   background: white;
@@ -139,7 +135,7 @@ textarea {
   font-weight: 500;
   font-size: 1em;
   color: #343434;
-  width: 30vw;
+  width: 40vw;
 }
 
 
@@ -153,4 +149,8 @@ textarea {
 
 .overflowScroll{
   overflow: scroll;
+}
+
+.width30vw{
+  width: 30vw;
 }

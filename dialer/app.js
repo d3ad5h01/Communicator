@@ -1,11 +1,7 @@
-let callActive = 0;
-let communication = [];
-let dialpadBtnContainer = document.getElementById("dialpad-btn-container");
-let popup_win;
-let parent;
-let call_object;
-let call_completed=0;
-//popup_win = window.opener.getPopUpVariable();
+let callActive = 0,communication = [],dialpadBtnContainer = document.getElementById("dialpad-btn-container");
+let popup_win, parent,call_object,call_completed=0;
+
+
 send("dialer_started","");
 setInterval(()=>{
   console.log(call_object);
