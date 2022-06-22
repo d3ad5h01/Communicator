@@ -56,7 +56,8 @@ function addmessageLocally(message){
 
 
 function handleClose(){
-    popup_win.close();
+    if(popup_win)
+        popup_win.close();
     isPopupActive = 0;
     if(localSessionStorage) sessionStorage.setItem('is_popup_active',0);
     if(localSessionStorage) sessionStorage.removeItem('call_object');
@@ -143,7 +144,7 @@ function recieve(type,object){
     addmessageLocally('Popup#'+type);
     console.log(object);
     if(type=='popup_variable'){
-        popup_win = object;
+        if(isPopupActive)popup_win = object;
         send('ack','');
         //return popup_win!=null;
     }
@@ -153,6 +154,7 @@ function recieve(type,object){
     else if(type == 'call_object'){
         call_object = object;
         updateCallObject();
+        if(!isPopupActive) call_object = null;
         return call_object!=null;
     }
     else if(type == 'ended_before_call_started' ){
@@ -181,4 +183,6 @@ function recieve(type,object){
         return call_object;
     }
 }
+
+
 

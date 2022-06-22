@@ -50,7 +50,7 @@ const windowResizeHandler = () => {
   }, 500);
 };
 
-const windowUnloadHandler = (event) => {
+window.onbeforeunload = (event) => {
   if (dialed_phone_number) {
         send('call_active_cancelled',"");
         return "Sure Wanna leave?? Call is active buddy...";
@@ -58,8 +58,6 @@ const windowUnloadHandler = (event) => {
         if(call_completed==0) send("ended_before_call_started","");
         return null;
   }
-  //event.preventDefault();
-  //return (event.returnValue = "");
 };
 
 const windowContextHandler = (event) => {
@@ -69,18 +67,18 @@ const windowContextHandler = (event) => {
 
 if (!document.getElementById("switch").checked) {
   window.addEventListener("resize", windowResizeHandler);
-  window.addEventListener("beforeunload", windowUnloadHandler);
+ // window.addEventListener("beforeunload", windowUnloadHandler);
   window.addEventListener("contextmenu", windowContextHandler);
 }
 
 document.getElementById("switch").addEventListener("change", function () {
   if (this.checked) {
     window.removeEventListener("resize", windowResizeHandler);
-    window.removeEventListener("beforeunload", windowUnloadHandler);
+    //window.removeEventListener("beforeunload", windowUnloadHandler);
     window.removeEventListener("contextmenu", windowContextHandler);
   } else {
     window.addEventListener("resize", windowResizeHandler);
-    window.addEventListener("beforeunload", windowUnloadHandler);
+   // window.addEventListener("beforeunload", windowUnloadHandler);
     window.addEventListener("contextmenu", windowContextHandler);
   }
 });
@@ -170,9 +168,9 @@ phone_button.onclick = () => {
     dialed_phone_number = null;
     flipDialpad(false);
     toggleTimer(false);
+    call_completed =1;
     send("call_ended","");
     call_object = null;
-    call_completed =1;
   } else if (dialed_digits.length >0 ) {
     dialed_phone_number = "";
     dialed_digits.forEach((each) => {
@@ -235,6 +233,7 @@ function toggleTimer(start) {
       second.innerHTML = s < 10 ? "0" + s : s;
       minute.innerHTML = m < 10 ? "0" + m : m;
       hour.innerHTML = h < 10 ? "0" + h : h;
+      call_object.duration = `${h}:${m}:${s}`;
     }, 999);
   } else {
     clearInterval(call_timer);
@@ -430,6 +429,7 @@ function recieve(type,object){
   }
   else if(type == 'call_object'){
       call_object = object;
+     // updateDialedNumber()
   }
   else if(type == 'reload_parent'){
     console.log('sending var to parents');
@@ -466,5 +466,5 @@ function heartbeat(){
         if(send('get_call_object')==null){
             send('call_object','');
         }
-      },1000);
+      },2000);
 }
