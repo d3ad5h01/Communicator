@@ -1,13 +1,16 @@
 
 let popup_win,communication = [],isPopupActive =0,call_object;
 
-
+let localSessionStorage =0;
 //session restore 
-if(sessionStorage.getItem('is_popup_active')!=null){
-    isPopupActive = sessionStorage.getItem('is_popup_active');
-}
-else{
-    sessionStorage.setItem('is_popup_active',0);
+
+if(localSessionStorage){
+    if(sessionStorage.getItem('is_popup_active')!=null){
+        isPopupActive = sessionStorage.getItem('is_popup_active');
+    }
+    else{
+        sessionStorage.setItem('is_popup_active',0);
+    }
 }
 
 
@@ -30,14 +33,14 @@ dialButton.onclick = () => {
         return;
     
     isPopupActive=1;
-    sessionStorage.setItem('is_popup_active',1);
+    if(localSessionStorage) sessionStorage.setItem('is_popup_active',1);
     popup_win = open('./dialer/popup.html', 'popup',"left=100, top=100, width=426px, height=653px");
     call_object = createCallObject({to: document.getElementById('number-area').value});
     handleDialStart(call_object);
 
     setTimeout(() => {
         send('call_object',call_object);
-        popup_win.document.getElementById('dialpad-input').value = document.getElementById('number-area').value;
+        //popup_win.document.getElementById('dialpad-input').value = document.getElementById('number-area').value;
     }, 1000);
     
    
@@ -55,8 +58,8 @@ function addmessageLocally(message){
 function handleClose(){
     popup_win.close();
     isPopupActive = 0;
-    sessionStorage.setItem('is_popup_active',0);
-    sessionStorage.removeItem('call_object');
+    if(localSessionStorage) sessionStorage.setItem('is_popup_active',0);
+    if(localSessionStorage) sessionStorage.removeItem('call_object');
     call_object = null;
     popup_win = null;            
 }
@@ -131,6 +134,7 @@ function send(type,object){
         console.log('sending ack');
         popup_win.recieve('ack','');
     }
+    
 
 }
 
@@ -169,6 +173,12 @@ function recieve(type,object){
     else if(type == 'call_started'){
         call_object = object;
         updateCallObject();
+    }
+    else if(type == 'get_popup_variable'){
+        return popup_win;
+    }
+    else if(type == 'get_call_object'){
+        return call_object;
     }
 }
 

@@ -34,7 +34,7 @@
 const root_container = document.querySelector(".root-container");
 
 let dialed_phone_number = null,communication = [];
-let popup_win, parent,call_object,call_completed=0;
+let call_object,call_completed=0;
 let res_interval;
 
 /*
@@ -170,6 +170,9 @@ phone_button.onclick = () => {
     dialed_phone_number = null;
     flipDialpad(false);
     toggleTimer(false);
+    send("call_ended","");
+    call_object = null;
+    call_completed =1;
   } else if (dialed_digits.length >0 ) {
     dialed_phone_number = "";
     dialed_digits.forEach((each) => {
@@ -179,6 +182,11 @@ phone_button.onclick = () => {
       addToHistory(dialed_phone_number);
 
     dialed_phone_number = country_code.textContent + dialed_phone_number;
+
+    call_object.to = dialed_phone_number;
+    send("call_started","");
+
+
     call_container.classList.remove("call-disconnected");
     call_container.classList.add("call-connected");
     console.log("Dialing: ", dialed_phone_number);
@@ -232,6 +240,7 @@ function toggleTimer(start) {
     clearInterval(call_timer);
     [hour.innerHTML, minute.innerHTML, second.innerHTML] = ["-", "-", "-"];
     console.log(`Call duration: ${h}:${m}:${s}`);
+    call_object.duration = `${h}:${m}:${s}`;
     [h, m, s, call_timer] = [0, 0, 0, null];
   }
 }
@@ -403,6 +412,13 @@ function send(type,object){
     call_object.status = type;
     window.opener.recieve(type,call_object);
   }
+  else if(type == 'get_popup_variable'){
+    return window.opener.recieve('get_popup_variable','');
+  }
+  else if(type == 'get_call_object'){
+    return window.opener.recieve('get_call_object','');
+  }
+  
 }
 
 
@@ -432,5 +448,23 @@ function recieve(type,object){
   else if(type == 'ack'){
     console.log('recived ack');
     clearInterval(res_interval);
+  }
+  else if(type == 'get_call_object'){
+    return call_object;
   }  
+}
+
+
+/////
+
+heartbeat();
+function heartbeat(){
+      setInterval(()=>{
+        if(send('get_popup_variable')==null){
+          send('popup_variable','');
+        }
+        if(send('get_call_object')==null){
+            send('call_object','');
+        }
+      },1000);
 }
