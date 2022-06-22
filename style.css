@@ -1,5 +1,5 @@
 body {
-  background-color: antiquewhite;
+  background-color: rgba(222, 222, 222, 0.396);
 }
 
 .flexCol {
@@ -24,22 +24,6 @@ body {
   gap: 20px;
 }
 
-.maxWidth200 {
-  width: 200px;
-}
-
-.maxWidth{
-  width: 90%;
-}
-
-.width50vw{
-  width: 50vw;
-}
-
-
-.width30vw{
-  width: 30vw;
-}
 
 
 .border1B{
@@ -161,6 +145,23 @@ textarea {
 .overflowScroll{
   overflow: scroll;
 }
+
+.width30vw{
+  width: 30vw;
+}
+
+.maxWidth200 {
+  width: 200px;
+}
+
+.maxWidth{
+  width: 90%;
+}
+
+.width50vw{
+  width: 50vw;
+}
+
 
 .width30vw{
   width: 30vw;

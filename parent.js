@@ -14,10 +14,10 @@ if(localSessionStorage){
 }
 
 
-setInterval(()=>{
-    console.log(call_object);
-    console.log(popup_win);
-},2000)
+// setInterval(()=>{
+//     console.log(call_object);
+//     console.log(popup_win);
+// },2000)
 
 window.onbeforeunload = (event) => {
    send('reload_parent',"");
@@ -69,34 +69,39 @@ function handleClose(){
 
 
 //Send message button handeling
-document.getElementById('send-message').addEventListener('click', () => {
-    send('chat',document.getElementById('message-area').value);
-    document.getElementById('message-area').value = '';
-})
+// document.getElementById('send-message').addEventListener('click', () => {
+//     send('chat',document.getElementById('message-area').value);
+//     document.getElementById('message-area').value = '';
+// })
 
 // Irrelevent style handeling logic
-const txt = document.querySelector('#message-area');
-function setNewSize() {
-    this.style.height = "1px";
-    this.style.height = this.scrollHeight + "px";
-}
-txt.addEventListener('keyup', setNewSize);
+// const txt = document.querySelector('#message-area');
+// function setNewSize() {
+//     this.style.height = "1px";
+//     this.style.height = this.scrollHeight + "px";
+// }
+// txt.addEventListener('keyup', setNewSize);
 
 
 
 // call object
 // id, duration, to , started 
 
+
+
+
 function updateCallObject(){
     let ack = call_object;
     if(document.getElementById(`${call_object.id}`)==null){
         addInCallBox(call_object);
     }else
-        document.getElementById(`${call_object.id}`).innerHTML = `ID: ${ack.id} </br> TO: ${ack.to} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration}`;
+        document.getElementById(`${call_object.id}`).innerHTML = `TO: ${ack.to} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration} </br> Started:${ack.started} ID: ${ack.id} </br> `;
 }   
 
 function addInCallBox(ack){
-    document.getElementById('content-body-box').innerHTML += `<div class='border1B padding10' id='${ack.id}'> ID: ${ack.id} </br> TO: ${ack.to} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration}`;
+    console.log("I am ");
+    console.log((createCallObject(ack,2)));
+    document.getElementById('content-body-box').innerHTML += (`<div class='border1B padding10' id='${ack.id}'> TO: ${ack.to} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration} </br> Started:${ack.started} ID: ${ack.id} </br> </div>`);
 }
 
 function handleDialStart(ack){
