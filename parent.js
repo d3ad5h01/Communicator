@@ -54,7 +54,7 @@ dialButton.onclick = () => {
 function addmessageLocally(message){
     console.log(message);
     communication.push(message);
-    document.getElementById('messages').innerHTML += ` <div class='maxWidth border1B padding10 overflowScroll' '>${message}</div>`;
+    document.getElementById('messages').innerHTML += ` <div class='maxWidth border1B padding10 overflowScroll' '>${(new Date()).getHours()}:${(new Date()).getMinutes()}:${ (new Date()).getSeconds()}#${message}</div>`;
 }
 
 
@@ -68,22 +68,6 @@ function handleClose(){
     popup_win = null;            
 }
 
-
-
-
-//Send message button handeling
-// document.getElementById('send-message').addEventListener('click', () => {
-//     send('chat',document.getElementById('message-area').value);
-//     document.getElementById('message-area').value = '';
-// })
-
-// Irrelevent style handeling logic
-// const txt = document.querySelector('#message-area');
-// function setNewSize() {
-//     this.style.height = "1px";
-//     this.style.height = this.scrollHeight + "px";
-// }
-// txt.addEventListener('keyup', setNewSize);
 
 
 
@@ -102,8 +86,6 @@ function updateCallObject(){
 }   
 
 function addInCallBox(ack){
-    console.log("I am ");
-    console.log((createCallObject(ack,2)));
     document.getElementById('content-body-box').innerHTML += (`<div class='border1B padding10' id='${ack.id}'> TO: ${ack.to} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration} </br> Started:${ack.started} ID: ${ack.id} </br> </div>`);
 }
 
@@ -149,7 +131,8 @@ function send(type,object){
 
 
 function recieve(type,object){
-    addmessageLocally('Popup#'+type);
+    if(!(type == 'get_popup_variable' || type == 'get_call_object')) 
+        addmessageLocally('Popup#'+type);
     console.log(object);
     if(type=='popup_variable'){
         if(isPopupActive)popup_win = object;
