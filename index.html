@@ -23,18 +23,31 @@
                 <h2>Calls</h2>
             </div>
         </div>
-        <div class="sidebar-container flexCol centerCol flexGap maxHeight1 width30vw" id="sidebar-box">
+        <div class="sidebar-container flexCol centerCol flexGap maxHeight1 width30vw border1B borderRadius" id="sidebar-box">
             <div class="options-container flexCol centerCol maxWidth">
                 <h2>Options</h2>
-                <input class="dialArea border1B width30vw borderRadius width20vw" id="" rows="1" placeholder="SIP"></input>
+                <input class="dialArea border1B  borderRadius width25vw" id="" rows="1" placeholder="SIP"></input>
                 </br>
-                <input class="dialArea border1B width30vw borderRadius width20vw" id="" rows="1" placeholder="USERNAME"></input>
+                <input class="dialArea border1B  borderRadius width25vw" id="" rows="1" placeholder="USERNAME"></input>
                 </br>
-                <input class="dialArea border1B width30vw borderRadius width20vw" id="" rows="1" placeholder="PASSWORD"></input>
+                <input class="dialArea border1B  borderRadius width25vw" id="" rows="1" placeholder="PASSWORD"></input>
                 </br>
+                <button id="connection-button"  class="button-6 backgroundGreen">Update</button>
+                </br>
+                <hr style=" width:100%" class="border1B">
+                </br>
+                <div class ='width25vw'>
+                    <label class="toggle align-left">
+                        <input id="session-storage-button" class="toggle-checkbox" type="checkbox">
+                        <div class="toggle-switch"></div>
+                        <span class="toggle-label">Local Cache </span>
+                    </label>
+                </div>
             </div>
-            <div id="messages">
-                <h3>Messages</h3>
+            <div class ='width25vw'>
+                <h3>Logs</h3>
+            </div>
+            <div class ='width25vw' id="messages">
             </div>
             </br>
             <!-- <form>

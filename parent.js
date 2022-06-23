@@ -13,6 +13,9 @@ if(localSessionStorage){
     }
 }
 
+document.getElementById('session-storage-button').addEventListener('click',()=>{
+    localSessionStorage =localSessionStorage^1;
+})
 
 // setInterval(()=>{
 //     console.log(call_object);
@@ -51,7 +54,7 @@ dialButton.onclick = () => {
 function addmessageLocally(message){
     console.log(message);
     communication.push(message);
-    document.getElementById('messages').innerHTML += ` <div class='maxWidth border1B padding10' '>${message}</div>`;
+    document.getElementById('messages').innerHTML += ` <div class='maxWidth border1B padding10 overflowScroll' '>${message}</div>`;
 }
 
 

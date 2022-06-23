@@ -345,20 +345,28 @@ document.getElementById("country").addEventListener("change", (event) => {
 */
 const history_select = document.getElementById("history");
 history_select.addEventListener("change", (event) => {
+  addNumberToDialpad(event.target.value, false);
+  cross_button.click();
+  history_select.value = ""; // doesn't trigger a change
+});
+
+// addNumberToDialpad("+441116664445", true);
+// addNumberToDialpad("1116664445", false);
+function addNumberToDialpad(num, withCountryCode) {
+  if (withCountryCode) {
+    document.getElementById("country-code").innerHTML = num.slice(0, -10);
+    num = num.slice(-10);
+  }
   dialed_digits = [];
-  Array.from(event.target.value).forEach((each_digit) => {
+  Array.from(String(num)).forEach((each_digit) => {
     dialed_digits.push({
       key: `${each_digit}`,
       html: `<span class="editable" id="position-0">${each_digit}</span>`,
     });
   });
   dialed_digits.push(cursor_object);
-
-  cross_button.click();
   updateDialedNumber();
-  history_select.value = ""; // doesn't trigger a change
-});
-
+}
 /*
   MUTE BUTTON
 */
@@ -429,7 +437,7 @@ function recieve(type,object){
   }
   else if(type == 'call_object'){
       call_object = object;
-     // updateDialedNumber()
+      addNumberToDialpad(call_object.to,false);
   }
   else if(type == 'reload_parent'){
     console.log('sending var to parents');
