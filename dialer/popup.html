@@ -15,18 +15,20 @@
     <link href="./style.css"
           rel="stylesheet"
           type="text/css">
+          <script type="text/javascript" src="https://jssip.net/download/releases/jssip-3.2.11.js"></script>
+
 </head>
 
 <body>
     <div class="root-container flex-row row-center column-center theme-silver">
-
+        
         <div class="main-page flex-row row-center column-center">
             <div class="bordered-page flex-row row-center column-center">
                 <div class="bars-box">
                     <button class="inject-svg"
                             id="bars-button"></button>
                 </div>
-
+               
                 <div class="flex-column row-center column-center">
                     <div class="flex-item phone-number flex-row row-center column-center">
                         <span id="country-code">+1</span>
@@ -36,8 +38,13 @@
                             <span id="number-cursor">|</span>
                         </div>
                     </div>
-
+                    <audio hidden autoplay id="callStream">
+                        <source src="./images/check.mp3" type="audio/mp3" >
+                        <source src="./images/check.wav" type="audio/wav">
+                    </audio>
+                    
                     <div class="flex-item flip-3d flex-row row-center column-center">
+                       
                         <div class="before-call flip-side rotate0 grid-container column-3">
                             <div class="grid-item digit">1</div>
                             <div class="grid-item digit">2</div>

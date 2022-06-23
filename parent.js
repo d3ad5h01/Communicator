@@ -1,6 +1,6 @@
 
 let popup_win,communication = [],isPopupActive =0,call_object;
-
+let socket_creds={server_address:"",username:"",password:""};
 let localSessionStorage =0;
 //session restore 
 
@@ -13,14 +13,17 @@ if(localSessionStorage){
     }
 }
 
-document.getElementById('session-storage-button').addEventListener('click',()=>{
-    localSessionStorage =localSessionStorage^1;
-})
+// document.getElementById('session-storage-button').addEventListener('click',()=>{
+//     localSessionStorage =localSessionStorage^1;
+// })
 
-// setInterval(()=>{
-//     console.log(call_object);
-//     console.log(popup_win);
-// },2000)
+document.getElementById('update-sip-creds-button').addEventListener('click',()=>{
+    socket_creds.server_address = document.getElementById('server_address').value;
+    socket_creds.username = document.getElementById('username').value;
+    socket_creds.password = document.getElementById('password').value;
+    send('socket_creds',"");
+
+})
 
 window.onbeforeunload = (event) => {
    send('reload_parent',"");
@@ -43,7 +46,7 @@ dialButton.onclick = () => {
 
     setTimeout(() => {
         send('call_object',call_object);
-        //popup_win.document.getElementById('dialpad-input').value = document.getElementById('number-area').value;
+        send('socket_creds',"");
     }, 1000);
     
    
@@ -61,6 +64,7 @@ function addmessageLocally(message){
 function handleClose(){
     if(popup_win)
         popup_win.close();
+    document.getElementById(`${call_object.id}`).classList.remove('activeCallBox');
     isPopupActive = 0;
     if(localSessionStorage) sessionStorage.setItem('is_popup_active',0);
     if(localSessionStorage) sessionStorage.removeItem('call_object');
@@ -86,7 +90,9 @@ function updateCallObject(){
 }   
 
 function addInCallBox(ack){
-    document.getElementById('content-body-box').innerHTML += (`<div class='border1B padding10' id='${ack.id}'> TO: ${ack.to} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration} </br> Started:${ack.started} ID: ${ack.id} </br> </div>`);
+    document.getElementById('content-body-box').innerHTML = (`<div class='border1B padding10' id='${ack.id}'> TO: ${ack.to} </br> STATUS: ${ack.status} </br> DURATION: ${ack.duration} </br> Started:${ack.started} ID: ${ack.id} </br> </div>`)+document.getElementById('content-body-box').innerHTML ;
+    document.getElementById(`${call_object.id}`).classList.add('activeCallBox');
+
 }
 
 function handleDialStart(ack){
@@ -124,6 +130,9 @@ function send(type,object){
     else if(type == 'ack'){
         console.log('sending ack');
         popup_win.recieve('ack','');
+    }
+    else if(type == 'socket_creds'){
+        popup_win.recieve('socket_creds',socket_creds);
     }
     
 
@@ -173,6 +182,7 @@ function recieve(type,object){
     else if(type == 'get_call_object'){
         return call_object;
     }
+
 }
 
 

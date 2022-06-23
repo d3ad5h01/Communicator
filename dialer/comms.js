@@ -1,41 +1,9 @@
-// class Message {
-//   constructor(header, comment, object) {
-//     this.header = header;
-//     this.comment = comment;
-//     this.object = object;
-//   }
-// }
-
-// const sendPreviousParent = () => {
-//   setTimeout(() => {
-//     sendMessage(new Message("reloaded", "previous dialer details", window));
-//   }, 2000);
-// };
-
-// function sendMessage(message) {
-//   if (window.opener) {
-//     window.opener.receiveMessage(message);
-//   } else {
-//     console.log("no parent window available");
-//   }
-// }
-
-// function receiveMessage(message) {
-//   if (message.header === "acknowledged") console.log(message.comment);
-//   else if (message.header === "unloading") sendPreviousParent();
-
-//   if (message.header && message.header != "acknowledged")
-//     sendMessage(new Message("acknowledged", "sent successfully", null));
-// }
-
-// sendMessage(new Message("initiated", "dialer popped up", null));
-
-
 const root_container = document.querySelector(".root-container");
 
 let dialed_phone_number = null,communication = [];
 let call_object,call_completed=0;
 let res_interval;
+let socket_creds={server_address:"",username:"",password:""};
 
 /*
   WINDOW RESTRICTIONS & DEVELOPER MODE
@@ -172,6 +140,7 @@ phone_button.onclick = () => {
     send("call_ended","");
     call_object = null;
   } else if (dialed_digits.length >0 ) {
+    connect();
     dialed_phone_number = "";
     dialed_digits.forEach((each) => {
       if (each.key != "|") dialed_phone_number += each.key;
@@ -426,6 +395,7 @@ function send(type,object){
     return window.opener.recieve('get_call_object','');
   }
   
+  
 }
 
 
@@ -453,6 +423,9 @@ function recieve(type,object){
       // },3000);
         
   }
+  else if(type == 'socket_creds'){
+    socket_creds = object;
+  }
   else if(type == 'ack'){
     console.log('recived ack');
     clearInterval(res_interval);
@@ -460,6 +433,7 @@ function recieve(type,object){
   else if(type == 'get_call_object'){
     return call_object;
   }  
+
 }
 
 
@@ -475,4 +449,108 @@ function heartbeat(){
             send('call_object','');
         }
       },2000);
+}
+
+
+
+//////////////JSSIP///////////////////
+
+// document.getElementById('connect_button').addEventListener('click',()=>{
+// })
+var remoteView = document.getElementById("remoteView");
+var call, ua;
+function answer() {
+  if (call) {
+      call.answer({
+          "extraHeaders": ["X-Foo: foo", "X-Bar: bar"],
+          "mediaConstraints": { "audio": true, "video": false },
+          "pcConfig": { rtcpMuxPolicy: "negotiate" },
+          "rtcOfferConstraints": {
+              offerToReceiveAudio: 1,
+              offerToReceiveVideo: 0
+          }
+      });
+  }
+}
+function decline() {
+  if (call) {
+      call.terminate();
+  }
+}
+function decline() {
+  if (call) {
+      call.terminate();
+  }
+}
+function connect() {
+  let sip = socket_creds.username;
+  let password = socket_creds.password;
+  let server_address = socket_creds.server_address;
+  
+  var configuration = {
+      sockets: [
+          new JsSIP.WebSocketInterface("wss://" + server_address + ":442")
+      ],
+      uri: "sip:" + sip + "@" + server_address,
+      authorization_user: sip,
+      password: password,
+      registrar_server: "sip:" + server_address,
+      session_timers: false
+  };
+  ua = new JsSIP.UA(configuration);
+  ua.on("connected", function (e) {
+      console.log("connected", e);
+  });
+  ua.on("newRTCSession", function (e) {
+      console.log("newRTCSession", e);
+      call = e.session;
+      call.on("sdp", function (e) {
+          console.log("call sdp:", e);
+          var lbody = e.sdp.split("\n");
+          var tempbody;
+          for (var i = 0; i < lbody.length; i++) {
+              if (!lbody[i].indexOf("a=crypto:1")) {
+                  continue;
+              }
+              if (!tempbody) {
+                  tempbody = lbody[i];
+              } else {
+                  tempbody += "\n" + lbody[i];
+              }
+          }
+          e.sdp = tempbody;
+      });
+      call.on("accepted", function (e) {
+          console.log("call accepted", e);
+      });
+      call.on("progress", function (e) {
+          console.log("call is in progress", e);
+          answer();
+      });
+      call.on("confirmed", function (e) {
+          console.log("call accepted/confirmed", e);
+      });
+      call.on("ended", function (e) {
+          console.log("Call ended: ", e);
+      });
+      call.on("failed", function (e) {
+          console.log("Call failed: ", e);
+      });
+      call.on("addstream", function (e) {
+          console.log("call addstream: ", e);
+          var remoteStream = e.stream;
+          remoteView = document.getElementById("callStream");
+          remoteView = JsSIP.rtcninja.attachMediaStream(remoteView, remoteStream);
+      });
+      call.on("peerconnection", function (e) {
+          console.log("call peerconnection: ", e);
+          e.peerconnection.onaddstream = function (e) {
+              console.log("call peerconnection addstream:", e);
+              remoteView = document.getElementById("callStream");
+              var remoteStream = e.stream;
+              remoteView.srcObject = remoteStream;
+          };
+      });
+  });
+  ua.start();
 }
