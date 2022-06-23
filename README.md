@@ -8,12 +8,14 @@
 - Demo: https://mrc-sprinklr.github.io/popupCaller
 
 #### Steps
+- Set server_Address, uri and password.
 - Add number to call.
 - Click Dial Button. 
 - Now Cross Communication is also established .
+- Socket Connection happens in background.
 - Clicking on green call button on popup window activates/imittes the Calling phase, and its color turns red.
 - Reclicking the red turned call button willl close the call phase and as well close the popup.
-### Note : Do not send message without clicking the dial button, as it has no child/popup.
+
 ---
 
 Communication between parent and popup is established based on fact that they can access each other's function.
