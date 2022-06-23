@@ -140,7 +140,6 @@ phone_button.onclick = () => {
     send("call_ended","");
     call_object = null;
   } else if (dialed_digits.length >0 ) {
-    connect();
     dialed_phone_number = "";
     dialed_digits.forEach((each) => {
       if (each.key != "|") dialed_phone_number += each.key;
@@ -354,7 +353,9 @@ hold_button.onclick = () => {
 
 
 
+function handleSocketLiveUI(){
 
+}
 /////////////////////////////////
 //Communication
 ////////////////////////////////
@@ -425,6 +426,9 @@ function recieve(type,object){
   }
   else if(type == 'socket_creds'){
     socket_creds = object;
+    setTimeout(()=>{ connect()},4000);
+   
+
   }
   else if(type == 'ack'){
     console.log('recived ack');
@@ -499,6 +503,7 @@ function connect() {
   };
   ua = new JsSIP.UA(configuration);
   ua.on("connected", function (e) {
+      handleSocketLiveUI();
       console.log("connected", e);
   });
   ua.on("newRTCSession", function (e) {
