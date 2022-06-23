@@ -134,6 +134,7 @@ let dialed_phone_numbers = new Set();
 phone_button.onclick = () => {
   console.log('Phone button clicked');
   if (dialed_phone_number) {
+    phone_button.disabled = true;
     call_container.classList.remove("call-connected");
     call_container.classList.add("call-disconnected");
     console.log("Hung-up: ", dialed_phone_number);
@@ -373,7 +374,11 @@ function handleSocketLiveUI(){
 
 
 function send(type,object){
-  if(type == 'popup_variable'){
+  if(!window.opener){
+    console.log('Window closed');
+
+  }
+  else if(type == 'popup_variable'){
       return window.opener.recieve(type,window);
   }
   else if(type == 'chat'){
