@@ -124,6 +124,9 @@ textarea {
   font-weight: 100;
   font-size: 1em;
   color: #343434;
+}
+
+.borderRadius1001{
   border-radius: 20px 0px 0px 20px;
 }
 
@@ -165,4 +168,8 @@ textarea {
 
 .width30vw{
   width: 30vw;
+}
+
+.width20vw{
+  width: 20vw;
 }
