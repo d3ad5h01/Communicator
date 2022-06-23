@@ -138,7 +138,10 @@ phone_button.onclick = () => {
     toggleTimer(false);
     call_completed =1;
     send("call_ended","");
-    call_object = null;
+    setTimeout(()=>{
+      window.close();
+    },500);
+    //call_object = null;
   } else if (dialed_digits.length >0 ) {
     dialed_phone_number = "";
     dialed_digits.forEach((each) => {
@@ -333,6 +336,7 @@ function addNumberToDialpad(num, withCountryCode) {
     });
   });
   dialed_digits.push(cursor_object);
+  cursor_index = num.length;
   updateDialedNumber();
 }
 /*

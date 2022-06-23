@@ -247,6 +247,7 @@ input:checked+label:after {
     background-color: var(--main);
     border: 5px solid transparent;
     border-radius: 40%;
+    user-select: none;
 }
 
 .special-digit:hover,

@@ -1,6 +1,6 @@
 
 let popup_win,communication = [],isPopupActive =0,call_object;
-let socket_creds={server_address:"",username:"",password:""};
+let socket_creds={server_address:"https://cpaas.ozonetel.com/",username:"10075",password:"10075"};
 let localSessionStorage =0;
 //session restore 
 
@@ -27,7 +27,7 @@ document.getElementById('update-sip-creds-button').addEventListener('click',()=>
 
 window.onbeforeunload = (event) => {
    send('reload_parent',"");
-   return "";
+   return '';
 };
 
 const dialButton = document.getElementById("dial-button");
@@ -35,20 +35,24 @@ const dialButton = document.getElementById("dial-button");
 //On click of dial button , opening popup and adding dialed number in its dial-input
 dialButton.onclick = () => {
    
-    if(isPopupActive!=0)
+    if(socket_creds.server_address==''){
+        alert('Add socket Address pls!!');
+    
+    }
+    else if(isPopupActive!=0)
         return;
-    
-    isPopupActive=1;
-    if(localSessionStorage) sessionStorage.setItem('is_popup_active',1);
-    popup_win = open('./dialer/popup.html', 'popup',"left=100, top=100, width=426px, height=653px");
-    call_object = createCallObject({to: document.getElementById('number-area').value});
-    handleDialStart(call_object);
+    else{
+        isPopupActive=1;
+        if(localSessionStorage) sessionStorage.setItem('is_popup_active',1);
+        popup_win = open('./dialer/popup.html', 'popup',"left=100, top=100, width=426px, height=653px");
+        call_object = createCallObject({to: document.getElementById('number-area').value});
+        handleDialStart(call_object);
 
-    setTimeout(() => {
-        send('call_object',call_object);
-        send('socket_creds',"");
-    }, 1000);
-    
+        setTimeout(() => {
+            send('call_object',call_object);
+            send('socket_creds',"");
+        }, 1000);
+    }
    
 
 };
