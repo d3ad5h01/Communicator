@@ -5,6 +5,8 @@ let call_object,call_completed=0;
 let res_interval;
 let socket_creds={server_address:"",username:"",password:""};
 
+
+
 /*
   WINDOW RESTRICTIONS & DEVELOPER MODE
 */
@@ -125,6 +127,8 @@ document.querySelectorAll(".digit").forEach((each) => {
 */
 const call_container = document.querySelector(".call");
 const phone_button = document.getElementById("phone-button");
+phone_button.disabled = true;
+
 let dialed_phone_numbers = new Set();
 
 phone_button.onclick = () => {
@@ -511,6 +515,7 @@ function connect() {
   ua = new JsSIP.UA(configuration);
   ua.on("connected", function (e) {
       handleSocketLiveUI();
+      phone_button.disabled = false;
       console.log("connected", e);
   });
   ua.on("newRTCSession", function (e) {

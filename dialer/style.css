@@ -280,6 +280,11 @@ input:checked+label:after {
     outline: none !important;
 }
 
+#phone-button:disabled {
+    background-color: var(--main_darker);
+    border: transparent;
+}
+
 select {
     padding: 5px;
     font-size: 15px;
