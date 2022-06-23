@@ -1,6 +1,6 @@
 
 let popup_win,communication = [],isPopupActive =0,call_object;
-let socket_creds={server_address:"https://cpaas.ozonetel.com/",username:"10075",password:"10075"};
+let socket_creds={server_address:"blr-sbc1.ozonetel.com",username:"10075",password:"10075"};
 let localSessionStorage =0;
 //session restore 
 

@@ -8,13 +8,13 @@ let socket_creds={server_address:"",username:"",password:""};
 /*
   WINDOW RESTRICTIONS & DEVELOPER MODE
 */
-const extraWidth = window.outerWidth - window.innerWidth;
-const extraHeight = window.outerHeight - window.innerHeight;
+const outerWidth = window.outerWidth ;
+const outerHeight = window.outerHeight;
 let isResized = null;
 const windowResizeHandler = () => {
   clearTimeout(isResized);
   isResized = setTimeout(() => {
-    window.resizeTo(400 + extraWidth, 600 + extraHeight);
+    window.resizeTo(outerWidth,outerHeight);
   }, 500);
 };
 
@@ -358,7 +358,9 @@ hold_button.onclick = () => {
 
 
 function handleSocketLiveUI(){
-
+    console.log('Socket color');
+    document.getElementById('live-socket-dot').classList.replace('socket-disconnected','socket-connected');
+  
 }
 /////////////////////////////////
 //Communication
@@ -447,6 +449,7 @@ function recieve(type,object){
 
 /////
 
+////
 heartbeat();
 function heartbeat(){
       setInterval(()=>{

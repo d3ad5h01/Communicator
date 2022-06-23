@@ -1,9 +1,9 @@
-.call-disconnected {
+.call-disconnected,.socket-connected {
     --call: #19e17d;
     --call_dark: #0ab464;
 }
 
-.call-connected {
+.call-connected,.socket-disconnected {
     --call: #e64b50;
     --call_dark: #c83c4b;
 }

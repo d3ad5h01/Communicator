@@ -15,27 +15,27 @@
     <div class="root-container flexRow centerRow flexGap" id="root-box">
         <div class="content-container flexCol centerCol border1B borderRadius padding10 width50vw " id="content-box">
             <div class="content-header-container flexRow centerRow padding10 " id="content-header-box">
-                <input class="dialArea borderRadius1001 border1B width30vw" id="number-area" rows="1" placeholder="Number to call.."></input>
+                <input class="inputBox borderRadius1001 border1B width30vw" id="number-area" rows="1" placeholder="Number to call.."></input>
                 </br>
-                <button id="dial-button"  class="button-6 backgroundGreen">DIAL</button>
+                <button id="dial-button"  class="buttons backgroundGreen">DIAL</button>
             </div>    
-            <div class="content-body-container  padding10 maxWidth maxHeight2 overflowScroll" >
+            <div class="content-body-container  padding10 maxWidth maxHeight80vh overflowScroll" >
                 <h2>Calls</h2>
                 <hr style=" width:100%" class="border1B">
             </div>
-            <div class="content-body-container  padding10 maxWidth maxHeight2 overflowScroll" id="content-body-box">
+            <div class="content-body-container  padding10 maxWidth maxHeight80vh overflowScroll" id="content-body-box">
             </div>
         </div>
-        <div class="sidebar-container flexCol centerCol flexGap maxHeight1 width30vw border1B borderRadius" id="sidebar-box">
+        <div class="sidebar-container flexCol centerCol flexGap maxHeight95vh width30vw border1B borderRadius" id="sidebar-box">
             <div class="options-container flexCol centerCol maxWidth">
                 <h2>Options</h2>
-                <input class="dialArea border1B  borderRadius width25vw" id="server_address" rows="1" placeholder="SIP"></input>
+                <input class="inputBox border1B  borderRadius width25vw" id="server_address" rows="1" placeholder="SIP"></input>
                 </br>
-                <input class="dialArea border1B  borderRadius width25vw" id="username" rows="1" placeholder="USERNAME"></input>
+                <input class="inputBox border1B  borderRadius width25vw" id="username" rows="1" placeholder="USERNAME"></input>
                 </br>
-                <input class="dialArea border1B  borderRadius width25vw" id="password" rows="1" placeholder="PASSWORD"></input>
+                <input class="inputBox border1B  borderRadius width25vw" id="password" rows="1" placeholder="PASSWORD"></input>
                 </br>
-                <button id="update-sip-creds-button"  class="button-6 backgroundGreen">Update</button>
+                <button id="update-sip-creds-button"  class="buttons backgroundGreen">Update</button>
                 </br>
                 <hr style=" width:100%" class="border1B">
                 <!--- </br>
@@ -50,7 +50,7 @@
             <div class ='width25vw'>
                 <h3>Logs</h3>
             </div>
-            <div class ='width25vw' id="messages">
+            <div class ='width25vw border1B' id="messages">
             </div>
             </br>
         </div>

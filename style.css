@@ -25,21 +25,16 @@ body {
   gap: 20px;
 }
 
-
-
-.border1B{
-  border: 1px solid rgba(0, 0, 0, 0.1);
+.align-left{
+  align-self: flex-start;
 }
 
-.borderRadius{
-  border-radius: 10px;
-}
 
 .padding10{
   padding: 10px;
 }
 
-.button-6 {
+.buttons{
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.25rem;
@@ -66,18 +61,18 @@ body {
   vertical-align: baseline;
 }
 
-.button-6:hover,
-.button-6:focus {
+.buttons:hover,
+.buttons:focus {
   border-color: rgba(0, 0, 0, 0.15);
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   color: rgba(0, 0, 0, 0.65);
 }
 
-.button-6:hover {
+.buttons:hover {
   transform: translateY(-1px);
 }
 
-.button-6:active {
+.buttons:active {
   background-color: #f0f0f1;
   border-color: rgba(0, 0, 0, 0.15);
   box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
@@ -93,31 +88,14 @@ body {
   background-color: #21e171;
 }
 
-textarea {
-  display: block;
-  box-sizing: border-box;
-  resize: none;
-  overflow-y: hidden;
-
-  /* optional CSS */
-  border: 0;
-  outline: 0;
-  background: white;
-  padding: 20px;
-  font-weight: 500;
-  font-size: 1em;
-  color: #343434;
-  width: 330px;
-}
 
 #messages {
-  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.25rem;
   padding: 5%;
   overflow: scroll;
 }
 
-.dialArea {
+.inputBox {
   outline: 0;
   background: transparent;
   padding: 20px;
@@ -126,22 +104,32 @@ textarea {
   color: #343434;
 }
 
+
+/* Border */
+
+.border1B{
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.borderRadius{
+  border-radius: 10px;
+}
+
 .borderRadius1001{
   border-radius: 10px 0px 0px 10px;
 }
 
-.dialArea:focus {
+.inputBox:focus {
   background: white;
   border: 1px solid rgba(0, 0, 0, 0.1);
-
 }
 
 
-.maxHeight1{
+.maxHeight95vh{
   max-height: 95vh;
 }
 
-.maxHeight2{
+.maxHeight80vh{
   max-height: 80vh;
 }
 
@@ -238,19 +226,15 @@ textarea {
   display: none;
 }
 
-.align-left{
-  align-self: flex-start;
-}
 
 h2,h3{
-  font-weight: 100;
-  font-size: 1em;
+  font-weight: 300;
+  font-size: 1.5em;
 }
 
 .overflowScroll{
   overflow: scroll;
 }
-
 
 .activeCallBox{
   background-color: rgb(186, 186, 186);;

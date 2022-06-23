@@ -4,6 +4,7 @@ body {
     padding: 0;
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
 }
 
 .root-container {
@@ -191,11 +192,12 @@ input:checked+label:after {
 }
 
 .bars-box,
-.cross-box {
+.cross-box{
     position: absolute;
     top: 0;
     right: 0;
 }
+
 
 #bars-button,
 #cross-button {
@@ -301,4 +303,20 @@ select {
 #mute-button:hover,
 #hold-button:hover {
     background-color: var(--main_darker) !important;
+}
+
+
+
+.online-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+.live-socket{
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    background-color: var(--call);
+
 }
